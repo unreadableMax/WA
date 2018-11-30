@@ -82,38 +82,35 @@ Basierend auf Reynolds Boid-System \cite{Reynolds87flocks} wird ein Modell für 
 
 Statt den simulierten Schwarm wie ein Partikelsystem zu behandeln, wird Reynolds Boid-Modell in ein Zellensystem, das mit den zellulären Automaten verwandt ist, transferiert. Diese Anpassung wird vorgenommen, damit die Simulation möglichst effizient von shader-Programmen ausgeführt werden kann.
 
-Das Simulationsmodell unterteilt den Schwarm nicht in einzelne separate Individuen. Stattdessen ist der Schwarm eine im Raum ungleichmäßig verteilte Menge.
-Der Schwarm wird daher als leuchtende Punkte-Wolke, von einer Textur dargestellt.
+Das Simulationsmodell unterteilt den Schwarm nicht in einzelne Individuen. Stattdessen ist der Schwarm eine im Raum ungleichmäßig verteilte Menge.
+Der Schwarm wird daher als leuchtende Punkte-Wolke dargestellt.
 
-Die konzipierte Schwarmsimulation wird mittels Content-Driven Multipass Rendering prototypisch implementiert und in Echtzeit ausgeführt.
+Die konzipierte Schwarmsimulation wird mittels Content-Driven Multipass Rendering prototypisch implementiert. Der Prototyp wurde erfolgreich auf Echtzeitfähigkeit geprüft.
 
 \end{abstract}
 
-\section{Einleitung2}
-Im Rahmen dieser Arbeit wird Reynolds Boid-Simulationsmodell so angepasst, dass alle für die Simulation nötigen Arbeitsschritte möglichst effizient von Shadern ausgeführt werden können.
+\section{Introduction and related work}
+%Im Rahmen dieser Arbeit wird Reynolds Boid-Simulationsmodell so angepasst, dass alle für die Simulation nötigen Arbeitsschritte möglichst effizient von Shadern ausgeführt werden können.
 
-Wegen der besonderen Funktionsweise von Shadern können manche Arbeitsschritte aus Reynolds Simulationsmodell nicht auf direktem Wege übernommen und implementiert werden. Daher werden manche Gesetzmäßigkeiten aus dem gegebenen Boid-Modell uminterpretiert und umformuliert. Bei Umformulierungen wird stets darauf geachtet, die grundlegenden Prinzipien des Boid-Systems möglichst unverändert zu lassen
+%Wegen der besonderen Funktionsweise von Shadern können manche Arbeitsschritte aus Reynolds Boid-Simulation nicht von shader-Programmen ausgeführt werden. Daher werden im Rahmen dieser Arbeit manche Gesetzmäßigkeiten aus Reynolds Boid-Modell entsprechend umformuliert. Bei Umformulierungen wird stets darauf geachtet, die grundlegenden Prinzipien des Boid-Systems möglichst unverändert zu lassen
 %, da sich das dieses System bereits in der Praxis bewährt hat.
 
 %Wie bereits erwähnt, ist CDMR die technische Grundlage für die Implementierung des Boid-Systems. Wesentliches Funktionsprinzip von CDMR ist die Bildung einer Shader-Pipeline, die Texturen verarbeitet. Also muss das Boid-System so uminterpretiert werden, dass dieses möglichst effizient von Texturen beschrieben und von Shadern simuliert werden kann.
 
 %\ac{CDMR}
 
+Um die Bewegungsabläufe von natürlichen Tierschwärmen zu simulieren, hat sich das sogenannte Boid-Modell von Reynolds etabliert. %Auch in dieser Arbeit werden seine bekanntesten Werke, \cite{Reynolds87flocks} und \cite{Reynolds99steeringbehaviors}, als Fundament genutzt, um ein Modell für die Simulation aufzustellen.
 
-\section{Related work}
+In dieser Arbeit werden die grundlegenden Werke von Reynolds Boid-modell \cite{Reynolds87flocks} \cite{Reynolds99steeringbehaviors} aufgegriffen, um ein neuartiges System zu modellieren, das besonders gut von Shadern und Texturen beschrieben werden kann.
 
-%Um die Bewegungen von Tierschwärmen zu simulieren, hat sich das sogenannte Boid-Modell von Reynolds etabliert. Auch in dieser Arbeit werden seine bekanntesten Werke, \cite{Reynolds87flocks} und \cite{Reynolds99steeringbehaviors}, als Fundament genutzt, um ein Modell für die Simulation aufzustellen.
-
-In dieser Arbeit werden die grundlegenden Prinzipien von Reynolds, \cite{Reynolds87flocks} und \cite{Reynolds99steeringbehaviors}, aufgegriffen um ein neuartiges System zu modellieren, das besonders gut von Shadern und Texturen beschrieben werden kann.
-
-Für gewöhnlich wird ein Boid-System wie ein Partikelsystem  behandelt \cite{Reynolds87flocks}, so wie in \cite{Oliver14Tschesche}. 
+Für gewöhnlich wird Reynolds Boid-System wie ein Partikelsystem  behandelt \cite{Reynolds87flocks} \cite{Oliver14Tschesche}. 
 %In solch einem System ist jedes Individuum des Schwarms ein eigenständiges Objekt, das sich frei im Raum bewegen kann. 
-In dieser Arbeit wird der Schwarm hingegen mithilfe eines Zellensystems beschrieben, in dem jede Zelle örtlich gebunden ist. Jede Zelle kann dabei von mehreren Individuen besucht werden. 
+In dieser Arbeit wird der Schwarm hingegen von einem Zellensystems beschrieben, in dem jede Zelle örtlich gebunden ist. Jede Zelle kann dabei von mehreren Individuen besucht werden. Diese Uminterpretation erfolgt, damit die Simulation auf effiziente Weise von shader-programmen ausgeführt werden kann.
 %Im Zellensystem befinden sich keine einzelnen Schwarmtiere, die eindeutig voneinander trennbar sind. Stattdessen  fließt  der Schwarm vielmehr, als zum Teil kontinuierlich zusammenhängende Menge, durch das Zellensystem. Das Zellensystem wird dabei von Texturen beschrieben.
 
 %Der im Rahmen dieser Arbeit entstandene algorithmische Aufwand ist weniger von der Anzahl der simulierten Individuen abhängig, so wie es in \cite{Reynolds87flocks} der Fall ist. Stattdessen steigt hier der Rechenaufwand in Abhängigkeit von der Anzahl der verwendeten Zellen.
 
-Reynolds Boid-System wird, wie in \cite{Oliver14Tschesche}, meist mithilfe von Grafikkartenschnittstellen wie \textit{OpenCV} oder \textit{CUDA} berechnet. In dieser Arbeit wird statt dessen auf die Verwendung von herkömmlichen Shadern gesetzt.
+%Reynolds Boid-System wird, wie in \cite{Oliver14Tschesche}, meist mithilfe von Grafikkartenschnittstellen wie \textit{OpenCV} oder \textit{CUDA} berechnet. In dieser Arbeit wird statt dessen auf die Verwendung von herkömmlichen Shadern gesetzt.
 
 %Schwarmtiere werden für gewöhnlich als einzelne 3D-Modelle dargestellt. Beispielsweise als einzelne Fische \cite{Tu94artificialfishes:} oder Vögel  \cite{Oliver14Tschesche}.
 %In dieser Arbeit erfolgt die Darstellung des Schwarms auf eine andere Weise. Einzelne Individuen sind hier kaum erkennbar, weil diese miteinander verschmelzen können. Der in Texturform hinterlegte Schwarm wird von Shadern als Punkte-Wolke dargestellt. Beispielsweise mittels \textit{Texture-Based Volume Rendering} \cite{GPUGems1}.  
@@ -129,13 +126,14 @@ Das Boid-System ist mit dem Partikelsystem verwand \cite{Reynolds87flocks} und k
 %Weil in diesem Fall das Boid-System von Texturen beschrieben wird, muss ein partikelähnliches System von Pixel-Shadern beschrieben werden. Herkömmliche Shader sind allerdings schlecht für die Beschreibung von Partikelsystemen geeignet. Das liegt an der folgenden Problematik:
  
 Wesentlicher Bestandteil eines Partikelsystems ist die Bewegung, also die Positionsänderung, von Partikeln. 
-Ein Shader kann ein Pixel allerdings nicht ohne weiteres bewegen. Das hängt damit zusammen, dass ein Pixel-Thread nicht in der Lage ist, Werte in andere Pixel zu schreiben. Jedes Pixel kann sein Rechenergebnis nur in sich selbst hinein schreiben.
+Ein Shader kann ein Pixel allerdings nicht ohne weiteres bewegen. Das hängt damit zusammen, dass ein Pixel-Thread nicht in der Lage ist, Werte in andere Pixel zu schreiben. Jedes Pixel kann sein Rechenergebnis nur in sich selbst schreiben.
 
 %Jedes Pixel als einzelnes Partikel zu betrachten, ist daher nicht empfehlenswert. Ein Partikel, beschrieben von einem Pixel, könnte dann nämlich nicht ohne weiteres seine Position ändern und könnte sich somit schlecht bewegen.
 
-Aufgrund dieser Einschränkung verabschieden wir uns an dieser Stelle vom Gedanken des Partikelsystems. Stattdessen wird das Boidsystem von einem Zellen-System beschrieben, wie bei shaderbasierten Flüssigkeitsströmungssimulationen \cite{GPUGems1} auch.
+Aufgrund dieser Einschränkung verabschieden wir uns an dieser Stelle vom Gedanken des Partikelsystems. Stattdessen wird das Boidsystem von einem Zellen-System beschrieben.
+%, wie bei shaderbasierten Flüssigkeitsströmungssimulationen \cite{GPUGems1} auch.
 
-Das bedeutet, dass verwendete Texturen kein Partikelsystem, sondern ein Zellensystem repräsentieren. Ein Pixel aus einer Textur beschreibt kein umherfliegendes Boid, sondern eine Zelle, die eine reelle Menge von Boids, $D_i$, enthalten kann. Die Individuen des Schwarms bewegen sich dabei durch nebeneinanderliegende Zellen hindurch.
+Weil shader-programme auf die Verarbeitung von Texturen optimiert sind, wird dieses Zellensystem mithilfe von Texturen beschrieben. Ein Pixel aus einer Textur repräsentiert eine Zelle. Die Individuen des simulierten Schwarms (Boids) bewegen sich dabei durch nebeneinanderliegende Zellen hindurch. Jede Zelle kann eine reelle Menge von Boids, $D_i>=0$, besitzen.
 
 %Weil sich hinter jeder Zelle ein Pixel-Thread verbirgt, sind es im Grunde die Zellen, die die umherfliegenden Boids steuern.
 
@@ -148,11 +146,11 @@ In den nächsten Kapiteln werden Reynolds drei Grundverhaltensregeln, cohasion, 
 
 \subsection{Cohasion}
 
-Das Steuersignal, das aus der Verhaltensregel der Kohäsion resultiert, wird $\vec{v}_c$ genannt. $\vec{v}_c$ ist vereinfacht gesagt ein Vektor, der zum Schwerpunkt aller gefundenen Nachbarn zeigt. 
+Der Steuervektor, der aus der Verhaltensregel der Kohäsion entsteht, wird $\vec{v}_c$ genannt. $\vec{v}_c$ ist im wesentlichem ein Vektor, der zum Schwerpunkt aller gefundenen Nachbarn zeigt. 
 Jede Zelle ist ein eigener Thread und berechnet ihr eigenes Kohäsions-Steuersignal, $\vec{v}_c$.
-Um $\vec{v}_c$ zu berechnen, wird die Boid-Dichte-Textur, $D$, benötigt. $D$ gibt an, wie viele Boids in einer Zelle vorhanden sind.
+Um $\vec{v}_c$ zu berechnen, wird die Textur $D$, benötigt. $D$ gibt an, wie viele Boids in einer Zelle vorhanden sind.
 
-Gegeben sei eine Zelle, $X$, die sich am Ort $x = (x_u \qquad x_v)$ befindet. Diese Zelle berechnet ein Kohäsions-Steuersignal für diesen Ort, $\vec{v}_c(x)$, mithilfe von $N$ gegebenen Wahrnehmungsvektoren. Mit einem Wahrnehmungsvektor, $\vec{s}_i$, kann eine Stichprobe, $D_i$, aus $D$ genommen werden.
+Gegeben sei eine Zelle, $X$, die sich am Ort $x = (x_u \qquad x_v)$ befindet. Diese Zelle berechnet ein Kohäsions-Steuersignal für diesen Ort, $\vec{v}_c(x)$, mithilfe von $N$ gegebenen Wahrnehmungsvektoren. Mit einem Wahrnehmungsvektor, $\vec{s}_i$, kann eine Stichprobe, $D_i$, aus $D$ entnommen werden (siehe Gleichung \ref{Form_Di}).
 
 \begin{equation}
 D_i(x) = D(x + \vec{s}_i \cdot \frac{1}{R})
@@ -163,14 +161,14 @@ D_i(x) = D(x + \vec{s}_i \cdot \frac{1}{R})
 
 \bild{bilder/ChesionAbb}{3cm}{Die rot markierte Zelle heißt $X$ und befindet sich an Position $x$. Sie besitzt 4 Wahrnehmungsvektoren, $\vec{s}_i$. Mit ihnen ist die Zelle in der Lage Stichproben, $D_i$, aus der Boid-Textur, $D$, zu entnehmen.}
 
-Mithilfe der Stichproben, $D_i$, wird dann das Kohäsions-Steuersignal, $\vec{v}_c$, wie folgt berechnet:
+Mithilfe von Stichproben, $D_i$, wird dann das Kohäsions-Steuersignal, $\vec{v}_c$, wie folgt berechnet:
 
 \begin{equation}
 \vec{v}_c(x) = \frac{\sum_{i=1}^N( \vec{s}_i \cdot D_i(x))}{\sum_{i=1}^N D_i(x)}
 \label{Form_Cohesion}
 \end{equation}
 
-Im Zähler aus Gleichung \ref{Form_Cohesion}, wird im Grunde nichts geringeres getan, als Vektoren von der Zelle $X$ zu allen gefundenen Nachbarn zu spannen.
+Im Zähler der Gleichung \ref{Form_Cohesion} werden Vektoren von Zelle $X$ zu allen gefundenen Nachbarn gespannt und aufsummiert.
 
 %Ist beispielsweise die Stichprobe $D_1$ aus Abbildung \ref{bilder/ChesionAbb} gleich 2, bedeutet dies, dass sich in der Zelle an der Stelle $x + \vec{s}_1$ zwei Boids befinden. Das Produkt aus $D_1$ und $\vec{s}_1$ ergibt $2 \cdot \vec{s}_1$. Somit werden zwei Vektoren zu einer Zelle gespannt, die zwei Boids aufbewahrt. Im Umkehrschluss Würden keine Vektoren nach $x + \vec{s}_1$ gespannt werden, wenn $D_1 = 0$ wäre, weil dann $D_1 \cdot \vec{s}_1 = 0$ ist.
 
@@ -191,15 +189,15 @@ So entsteht schlussendlich Formel \ref{Form_Separation}:
 \label{Form_Separation}
 \end{equation}
 
-Auch hier werden zuerst Vektoren zu allen Nachbarn gespannt, indem das Produkt aus $D_i$ und $\vec{s}_i$ gebildet wird. Weil in diesem Fall die Größe der gespannten Vektoren aber noch gesondert behandelt werden muss, werden sie vorerst normiert. So ergibt sich $D_i \cdot e(\vec{s}_i)$. 
+%Auch hier werden zuerst Vektoren zu allen Nachbarn gespannt, indem das Produkt aus $D_i$ und $\vec{s}_i$ gebildet wird. Weil in diesem Fall die Größe der gespannten Vektoren aber noch gesondert behandelt werden muss, werden sie vorerst normiert. So ergibt sich $D_i \cdot e(\vec{s}_i)$. 
 %Wenn beispielsweise $D_i = 2$ ist, werden zwei Einheitsvektoren erzeugt, die von $x$ in die Richtung der beiden Nachbarn zeigen. 
-Natürlich werden alle Einheitsvektoren noch umgedreht, damit abstoßende Kräfte entstehen. All diese abstoßenden Einheitsvektoren werden dann mit $1/ \length{s_i}$ gewichtet, so wie von Reynolds in \cite{Reynolds99steeringbehaviors} empfohlen. 
+%Natürlich werden alle Einheitsvektoren noch umgedreht, damit abstoßende Kräfte entstehen. All diese abstoßenden Einheitsvektoren werden dann mit $1/ \length{s_i}$ gewichtet, so wie von Reynolds in \cite{Reynolds99steeringbehaviors} empfohlen. 
 %Je kürzer $\vec{s}_i$ ist, desto größer wird die abstoßende Kraft sein. Zuletzt werden alle Vektoren summiert und es entsteht das fertige Separations-Steuersignal, $\vec{v}_s$.
 
 \subsection{Alignment}
 \label{subsec_Ausrichtung}
 
-Das Steuersignal, $\vec{v}_a$, soll dafür sorgen, dass sich ein Boid der Bewegungsrichtung und Geschwindigkeit seiner Nachbarschaft anpasst. Diesmal ist also nicht nur die Menge, $D$, der Nachbarschaft von Interesse, sondern auch deren Bewegungsrichtungen, $\vec{V}$.
+Der Steuervektor, $\vec{v}_a$, soll dafür sorgen, dass sich ein Boid der Bewegungsrichtung und Geschwindigkeit seiner Nachbarschaft anpasst. Diesmal ist also nicht nur die Menge, $D$, der Nachbarschaft von Interesse, sondern auch deren Bewegungsrichtungen, $\vec{V}$.
 
 %Die Nachbarschaftssuche um Position $x$ herum, wird wieder mithilfe von $N$ Wahrnehmungsvektoren unternommen. Jeder Wahrnehmungsvektor, $\vec{s}_i$, wird dabei eine Stichprobe, $\vec{V}_i(x)$, aus der Textur, $\vec{V}$, entnehmen. 
 %Die Berechnung von $\vec{V}_i(x)$ erfolgt nach Formel \ref{Form_Vi}:
@@ -208,7 +206,7 @@ Das Steuersignal, $\vec{v}_a$, soll dafür sorgen, dass sich ein Boid der Bewegu
 
 %Wobei $R$ die Auflösung von $\vec{V}$ ist. 
 %Hierbei ist zu beachten, dass $\vec{V}$ einen Steuervektor von einer Zelle liefert. 
-In einer Zelle können sich mehrere Boids aufhalten. Das Bedeutet, dass $\vec{V}$ den Steuervektor von mehreren Boids repräsentieren könnte. Dies wird bei der Berechnung von $\vec{v}_a$, in Formel \ref{Form_Align}, berücksichtigt.
+In einer Zelle können sich mehrere Boids aufhalten. Das Bedeutet, dass $\vec{V}$ den Gesamtsteuervektor von mehreren Boids repräsentieren könnte. Dies wird bei der Berechnung von $\vec{v}_a$ berücksichtigt:
 
 \begin{equation}
 \vec{v}_a(x) = \dfrac{\sum_{i=1}^N(\vec{V}_i(x) \cdot D_i(x))}{\sum_{i=1}^N(D_i(x))} - \vec{V}(x)
@@ -222,12 +220,12 @@ mit
 \label{Form_Vi}
 \end{equation}
 
-Zuerst wird im Zähler (Gleichung \ref{Form_Align}) des ersten Terms die Summe aller Steuervektoren aus der Nachbarschaft gebildet. 
+So setzt sich Gleichung \ref{Form_Align} zusammen: Zuerst wird im Zähler des ersten Terms die Summe aller Gesamtsteuervektoren aus der Nachbarschaft gebildet. 
 %Die Summe aller Steuervektoren, aus einer benachbarten Zelle, kann mit $\vec{V}_i \cdot D_i$ errechnet werden. 
 %Befinden sich beispielsweise zwei Boids in der durchsuchten Zelle, ist $D_i=2$. Dann müsste also das Steuersignal auch doppelt genommen werden um die Summe aller Steuersignale zu erhalten. Daher wird hier mit $\vec{V}_i \cdot D_i$ gearbeitet. 
-Danach wird diese Summe durch die Anzahl an gefundenen Steuersignalen geteilt. Die Anzahl der gefundenen Steuersignale entspricht der Anzahl der gefundenen Boids, $\sum_{i=1}^N(D_i(x))$.
+Danach wird diese Summe durch die Anzahl aller gefundenen Steuervektoren geteilt. Die Anzahl der gefundenen Steuervektoren entspricht der Anzahl der gefundenen Boids, $\sum_{i=1}^N(D_i(x))$.
 
-Nachdem die durchschnittliche Bewegungsrichtung der Nachbarschaft ermittelt wurde, wird davon die eigene Bewegungsrichtung, $\vec{V}(x)$, abgezogen, so wie es auch in \cite{Reynolds99steeringbehaviors} getan wird. 
+Nachdem die durchschnittliche Bewegungsrichtung der Nachbarschaft ermittelt wurde, wird davon die eigene Bewegungsrichtung, $\vec{V}(x)$, abgezogen, so wie es in \cite{Reynolds99steeringbehaviors} empfohlen wird. 
 
 %Formel \ref{Form_Align} kann auch zu Formel \ref{Form_AlignCa} vereinfacht werden. Bei dieser Vereinfachung wird ein Steuersignal aus einer Zelle, $\vec{V}_i$, direkt als Durchschnittssignal interpretiert.
 
@@ -251,131 +249,134 @@ Nachdem die durchschnittliche Bewegungsrichtung der Nachbarschaft ermittelt wurd
 
 %Würde immer der komplette Inhalt einer Zelle wandern, dann wäre auch immer dieselbe Menge Boids unterwegs. Nur beim Prinzip des Boid-Flusses kann sich der Inhalt einer Zelle auf mehrere Zellen verteilen, womit zu große Gruppenbildungen innerhalb einer Zelle vermieden werden können. Der Boid-Fluss soll sich auch vermischen können.
 
-In order to find a formula, that discripe how the boids moves through the cell-system, we define following rules:
+Nachdem $V$ berechnet wurde, muss der Schwarm in Richtung der gegebenen Steuervektoren bewegt werden. Wie sich eine Menge Boids, $D_i$, die sich innerhalb einer Zelle befindet, verteilt, wird mithilfe folgender Regeln modelliert:
 
 \subsubsection{Die Anzahl der Boids ist konstant}
 
-Beim Transport der Boids sollte stets auf die Einhaltung des folgenden Gesetzes geachtet werden:
+%Beim Transport der Boids sollte stets auf die Einhaltung des folgenden Gesetzes geachtet werden:
 
 \begin{equation}
 \sum_{i=1}^R \sum_{j=1}^R D(i,j)  = konstant
 \label{Form_BoidFlussKonst}
 \end{equation}
 
-Formel \ref{Form_BoidFlussKonst} legt fest, dass die Anzahl aller vorhandenen Boids konstant bleiben muss. Die Anzahl soll im Verlaufe der Simulation weder sinken noch fallen. Beim Boid-Transport muss darauf stets geachtet werden.
-
+Formel \ref{Form_BoidFlussKonst} legt fest, dass die Anzahl aller vorhandenen Boids konstant bleiben muss.
 
 \subsubsection{Ein Steuervektor entleert und befüllt dieselbe Menge Boids}
 \label{subsubsec_D_V}
 
-Gegeben sei eine Zelle $X$ bei $x$. Sie besitzt einen Steuervektor $\vec{V}$ und $D$ Boids.
+%Gegeben sei eine Zelle $X$ bei $x$. Sie besitzt einen Steuervektor $\vec{V}$ und $D$ Boids.
 
-Der Steuervektor, $\vec{V}$, verursacht den Transport einer Menge Boids, $D_V$, wobei \\ $D_V <= D$ (damit Gesetz \ref{Form_BoidFlussKonst} eingehalten wird).
+Ein Steuervektor, $\vec{V}$, verursacht den Transport einer Menge Boids, $D_V$.
+%, wobei \\ $D_V <= D$ (damit Gesetz \ref{Form_BoidFlussKonst} eingehalten wird).
 
-Durch den Transport verliert Zelle $X$ $D_V$ Boids, während genau dieselbe Menge in ihrer Umgebung verteilt wird. Die Menge $D_V$ wird auf $N$ andere Zellen verteilt, diese Zellen werden als \textit{besuchte} Zellen bezeichnet. Jede besuchte Zelle bekommt eine Teilmenge von $D_V$, namens $D_{Vi}$ gutgeschrieben.
+Durch den Transport verliert eine Zelle $D_V$ boids, während genau dieselbe Menge in ihrer Umgebung verteilt wird. 
+Eine Zelle darf niemals mehr Boids verlieren, als Sie besitzt.
+Eine verteilte Menge Boids, $D_V$, kann auf $N$ andere Zellen verteilt werden:
+%Diese Zellen werden als \textit{besuchte} Zellen bezeichnet. Jede besuchte Zelle bekommt eine Teilmenge von $D_V$, namens $D_{Vi}$ gutgeschrieben.
 
-\bild{bilder/LeafEqEnter}{8.5cm}{Es werden drei unterschiedliche Verteilungsarten gezeigt. Die rot markierte Zelle verteilt Boids in Richtung von $V$. Die Verteilende Zelle verliert dabei $D_V$ Boids. Genau diese Menge wird dann in die orange markierten Zellen verteilt. Hierfür können unterschiedliche Verteilungsarten konzipiert werden.}
+\bild{bilder/LeafEqEnter}{5cm}{Es lassen sich beliebig viele Verteilungsmethoden modellieren. Die rot markierte Zelle verteilt Boids in Richtung von $V$. Die Verteilende Zelle verliert dabei $D_V$ Boids. Genau diese Menge wird dann in die orange markierten Zellen verteilt. Hierfür können unterschiedliche Verteilungsarten konzipiert werden.}
 
-Die Summe aller $N$ Teilmengen, $D_{Vi}$, muss genau so groß sein, wie die verloren gegangene Menge $D_V$.
+Die Summe aller $N$ Teilmengen, $D_{Vi}$, muss dabei genau so groß sein, wie die verteilte Menge $D_V$:
 
 \begin{equation}
 \sum_{i=1}^N(D_{V_i}) = D_V
 \label{Form_SummeD_V_i}
 \end{equation}
 
-Für die Verteilung von $D_V$ können, so wie in Abbildung \ref{LeafEqEnter} vorgeschlagen, unterschiedliche Verteilungsmethoden eingesetzt werden. $D_{Vi}$ kann einer einzigen Zelle überreicht oder auf mehrere Zellen verteilt werden.
+Für die Verteilung von $D_V$ können, so wie in Abbildung \ref{LeafEqEnter} vorgeschlagen, unterschiedliche Verteilungsmethoden eingesetzt werden. %$D_{Vi}$ kann einer einzigen Zelle überreicht oder auf mehrere Zellen verteilt werden.
 
 %Bei der Verteilung muss aber immer Gleichung \ref{Form_SummeD_V_i} erfüllt sein. Außerdem sollten die Teilmengen, $D_{Vi}$, sinngemäß in Richtung des Steuervektors, $\vec{V}$, verteilt werden, damit sich die Boids in die angestrebte Richtung bewegen.
 
 
 \subsubsection{Maximale Bewegungsreichweite eines Boids}
 
-Bei der Advektion von Texturen sollte ein Pixel pro Zeitschritt nicht weiter als eine Pixellänge bewegt werden. Ansonsten können Instabilitäten entstehen, wodurch sich die bewegte Textur, laut \cite{GPUGems1}, explosionsartig aufblähen kann.
+Bei der Advektion von Texturen sollte ein Pixel pro Zeitschritt nicht weiter als eine Pixellänge bewegt werden. Ansonsten können Instabilitäten entstehen, wodurch sich die bewegte Textur, laut \cite{GPUGems1}, explosionsartig aufblasen kann.
 
-Daher sollte bei der Simulation darauf geachtet werden, dass ein Boid pro Simulationsschritt keine Zelle überspringt. Diese Regel sollte bei der Konzipierung von Verteilungsmethoden berücksichtigt werden. Verteilungsmethoden wie die Methode, die in Abbildung \ref{LeafEqEnter} ganz rechts zu sehen ist, sollten daher vermieden werden.
-
-
-
-\subsection{Boid-movement formula}
-Nachdem in Kapitel \ref{subsec_DefUVorschr} festgelegt wurde, nach welchen Gesetzen und Formeln sich der Schwarm im Zellensystem verteilen soll, kann eine allgemein gültige Formel für den Transport von $D$ aufgestellt werden.
-
-Grundsätzlich geben Zellen pro Simulationsschritt Boids an Nachbarzellen ab und nehmen neue Boids von ihren Nachbarn auf. Dieser Prozess kann über Formel \ref{Form_AdvektUeberischt} ausgedrückt werden:
-
-\begin{equation}
-D(x,t+dt) = D(x,t)-D_{leave}(x,t) + D_{enter}(x,t)
-\label{Form_AdvektUeberischt}
-\end{equation}
-
-In Gleichung \ref{Form_AdvektUeberischt} aktualisiert eine Zelle, die sich bei $x$ befindet, ihre Boids. Hierfür wird $D_{leave}(x,t)$ von $D(x,t)$ abgezogen und $D_{enter}(x,t)$ zu $D(x,t)$ addiert.
-
-Zunächst wird es darum gehen, den bis jetzt unbekannten Termen  $D_{leave}$ und $D_{enter}$ näher zu kommen.
+%Daher sollte bei der Simulation darauf geachtet werden, dass ein Boid pro Simulationsschritt keine Zelle überspringt. Diese Regel sollte bei der Konzipierung von Verteilungsmethoden berücksichtigt werden. Verteilungsmethoden wie die Methode, die in Abbildung \ref{LeafEqEnter} ganz rechts zu sehen ist, sollten daher vermieden werden.
 
 
-
-%\subsubsection{Verlassene Zellen}
-%\label{subsec_VerlasseneZellen}
-Gegeben sei eine Zelle $X$ am Ort $x$. Sie besitzt $D(x)$ Boids. Außerdem besitzt sie einen Steuervektor, $\vec{V}(x)$, für ihre Boids. $\vec{V}(x)$ repräsentiert den derzeitigen  Bewegungswunsch der in $X$ enthaltenen Boids. Im Steuervektor ist auch die Information enthalten, wie viele Boids aus der Zelle fließen werden, $D_{leave}(x)$. Die Länge des Steuervektors stellt dabei die Dringlichkeit des Bewegungswunsches dar. Ist $\vec{V}(x)$ groß, haben es die Boids im übertragendem Sinne eilig. 
-%Vielleicht weil gerade die Gefahr besteht den Anschluss zum Schwarm zu verlieren, weil ein Jäger in der Nähe ist, oder weil eine Kollisionsgefahr mit benachbarten Boids besteht. Deswegen sollte die Menge der Boids, die die Zelle verlassen, $D_{leave}(x)$, mit $\length{V(x)}$ wachsen.
-
-\begin{equation}
-D_{leave}(x) \thicksim \length{V(x)}
-\label{Form_DLeavePropV}
-\end{equation}
-
-Außerdem ist $D_{leave}(x)$ neben $\length{V(x)}$ auch abhängig von $D(x)$. $D_{leave}(x)$ ist schließlich eine Teilmenge von $D(x)$, wobei $D_{leave}(x) <= D(x)$.
-
-Daraus ergibt sich schlussendlich die finale Formel für $D_{leave}(x)$:
-
-\begin{equation}
-D_{leave}(x) = \length{V(x)} \cdot D(x)
-\label{Form_DLeaveFinal}
-\end{equation}
-
-Außerdem muss dabei stets Gleichung \ref{Form_lengthVOne} erfüllt sein, damit $D_{leave}(x) <= D(x)$ gilt.
-
-\begin{equation}
-\length{V(x)} <= 1
-\label{Form_lengthVOne}
-\end{equation}
-
-Bei der Generierung der Steuersignale sollte also stets darauf geachtet werden, das ein Steuervektor niemals größer als 1 wird.
-
-An dieser Stelle sollte die folgende Erkenntnis nicht fehlen: Die transportierte Menge, $D_V$, ist genauso groß wie die verlorene Menge, $D_{leave}$.
-
-\begin{equation}
-D_{leave}(x) = D_V(x)
-\label{Form_DLeaveEqDV}
-\end{equation}
-
-
-%\subsubsection{Zellenbesuch}
-%\label{sec_Zellenbesuch}
-
-Wie $D_{Enter}$ berechnet wird, hängt davon ab, nach welchem Verteilungsgesetz die transportierte Menge, $D_V$, verteilt wird. 
-%Im Rahmen dieser Arbeit wurden zwei Verteilungsmethoden entwickelt und ausgetestet.
-
-%Bei beiden Methoden findet der Boid-Austausch immer zwischen direkt benachbarten Zellen statt. Pro Simulationsschritt kann ein Boid also keine Zelle überspringen, was zu stabilen Simulationsergebnissen führen soll.
-
-
-%\subsubsection{Verteilung in eine Nachbarzelle}
-
-Ein besonders einfaches Verteilungsgesetz ist die Verteilung der Menge $D_V$ in eine Nachbarzelle. Diese Methode bringt dabei den Vorteil eines geringen Rechenaufwands mit sich.
-
-%Solange $\length{V}$ kleiner als 1 ist, kommt auch bei dieser einfachen Methode ein Boid-Fluss zustande, weil dann nur ein Teil von $D$ in eine benachbarte Zelle fließen kann.
-
-%Es folgt anhand eines Beispiels die Beschreibung des festgelegten Verteilungsgesetzes:
-
-%Gegeben sei eine Zelle, $X$, die sich an der Position $x=(u_x \qquad v_x)$, in einem zweidimensionalem Zellensystem befindet. Ihr Steuervektor, $\vec{V}(x)$, zeigt ungefähr auf die obere, rechte Nachbarzelle von $X$. $\vec{V}(x)$ sei also ungefähr $(1 \qquad -1)$.
-
-%\bild{bilder/VerteilungInEineNachbarzelle}{7cm}{Auch wenn $V$ nicht exakt auf die orange markierte Zelle zeigt, bekommt diese 100\% von $D_V$ gut geschrieben.}
-
-%Die Zelle $X$ wird dann $D_{leave}(x) = D_V(x)$ (Siehe Formel \ref{Form_DLeaveFinal}) Zellen verlieren und an die Nachbarzelle, auf die $V(x)$ zeigt, abgeben. Der Zelle, die sich bei $x + (1 \qquad -1)$ aufhält, werden dann $D_V(x)$ Boids gutgeschrieben.
-
-%Aufgrund der Funktionsweise von Shadern kann eine Zelle, $X$, keine Werte in eine Nachbarzelle schreiben. Sie kann daher $D_V(x)$ nicht an ihre Nachbarzelle übergeben. Stattdessen müsste die Nachbarzelle selbst   erkennen, dass der Steuervektor $\vec{V}(x)$ von Zelle $X$ auf sie selbst zeigt. Denn nur die Nachbarzelle selbst, kann $D_V(x)$ zu ihren Boid-Bestand hinzufügen.
-
-Eine Zelle, $X$, muss all Ihre direkten Nachbarn durchsuchen, um in Erfahrung zu bringen, ob Steuervektoren aus ihrer Nachbarschaft auf sie selbst zeigen. Die Nachbarsuche kann mithilfe von unterschiedlich orientierten Testvektoren, $\vec{T}_i$, erfolgen, so wie in Abbildung \ref{AdvektVergleichsvektoren} dargestellt.
-
-\bild{bilder/AdvektVergleichsvektoren}{8.5cm}{Die rot eingefärbte Zelle untersucht ihre Nachbarschaft mit $N_c$ Testvektoren, $T_i$. Die Testvektoren repräsentieren auch die möglichen Bewegungsrichtungen die ein Boid einschlagen kann. Wenn nur 4 Testvektoren verwendet werden, heißt das auch, dass sich die Boids in nur 4 unterschiedliche Richtungen bewegen können.}
+%
+%\subsection{Boid-movement formula}
+%%Nachdem in Kapitel \ref{subsec_DefUVorschr} festgelegt wurde, nach welchen Gesetzen und Formeln sich der Schwarm im Zellensystem verteilen soll, kann eine allgemein gültige Formel für den Transport von $D$ aufgestellt werden.
+%
+%%Grundsätzlich geben Zellen pro Simulationsschritt Boids an Nachbarzellen ab und nehmen neue Boids von ihren Nachbarn auf. Dieser Prozess kann über Formel \ref{Form_AdvektUeberischt} ausgedrückt werden:
+%
+%\begin{equation}
+%D(x,t+dt) = D(x,t)-D_{leave}(x,t) + D_{enter}(x,t)
+%\label{Form_AdvektUeberischt}
+%\end{equation}
+%
+%In Gleichung \ref{Form_AdvektUeberischt} aktualisiert eine Zelle, die sich bei $x$ befindet, ihre Boids. Hierfür wird $D_{leave}(x,t)$ von $D(x,t)$ abgezogen und $D_{enter}(x,t)$ zu $D(x,t)$ addiert.
+%
+%Zunächst wird es darum gehen, den bis jetzt unbekannten Termen  $D_{leave}$ und $D_{enter}$ näher zu kommen.
+%
+%
+%
+%%\subsubsection{Verlassene Zellen}
+%%\label{subsec_VerlasseneZellen}
+%Gegeben sei eine Zelle $X$ am Ort $x$. Sie besitzt $D(x)$ Boids. Außerdem besitzt sie einen Steuervektor, $\vec{V}(x)$, für ihre Boids. $\vec{V}(x)$ repräsentiert den derzeitigen  Bewegungswunsch der in $X$ enthaltenen Boids. Im Steuervektor ist auch die Information enthalten, wie viele Boids aus der Zelle fließen werden, $D_{leave}(x)$. Die Länge des Steuervektors stellt dabei die Dringlichkeit des Bewegungswunsches dar. Ist $\vec{V}(x)$ groß, haben es die Boids im übertragendem Sinne eilig. 
+%%Vielleicht weil gerade die Gefahr besteht den Anschluss zum Schwarm zu verlieren, weil ein Jäger in der Nähe ist, oder weil eine Kollisionsgefahr mit benachbarten Boids besteht. Deswegen sollte die Menge der Boids, die die Zelle verlassen, $D_{leave}(x)$, mit $\length{V(x)}$ wachsen.
+%
+%\begin{equation}
+%D_{leave}(x) \thicksim \length{V(x)}
+%\label{Form_DLeavePropV}
+%\end{equation}
+%
+%Außerdem ist $D_{leave}(x)$ neben $\length{V(x)}$ auch abhängig von $D(x)$. $D_{leave}(x)$ ist schließlich eine Teilmenge von $D(x)$, wobei $D_{leave}(x) <= D(x)$.
+%
+%Daraus ergibt sich schlussendlich die finale Formel für $D_{leave}(x)$:
+%
+%\begin{equation}
+%D_{leave}(x) = \length{V(x)} \cdot D(x)
+%\label{Form_DLeaveFinal}
+%\end{equation}
+%
+%Außerdem muss dabei stets Gleichung \ref{Form_lengthVOne} erfüllt sein, damit $D_{leave}(x) <= D(x)$ gilt.
+%
+%\begin{equation}
+%\length{V(x)} <= 1
+%\label{Form_lengthVOne}
+%\end{equation}
+%
+%Bei der Generierung der Steuersignale sollte also stets darauf geachtet werden, das ein Steuervektor niemals größer als 1 wird.
+%
+%An dieser Stelle sollte die folgende Erkenntnis nicht fehlen: Die transportierte Menge, $D_V$, ist genauso groß wie die verlorene Menge, $D_{leave}$.
+%
+%\begin{equation}
+%D_{leave}(x) = D_V(x)
+%\label{Form_DLeaveEqDV}
+%\end{equation}
+%
+%
+%%\subsubsection{Zellenbesuch}
+%%\label{sec_Zellenbesuch}
+%
+%Wie $D_{Enter}$ berechnet wird, hängt davon ab, nach welchem Verteilungsgesetz die transportierte Menge, $D_V$, verteilt wird. 
+%%Im Rahmen dieser Arbeit wurden zwei Verteilungsmethoden entwickelt und ausgetestet.
+%
+%%Bei beiden Methoden findet der Boid-Austausch immer zwischen direkt benachbarten Zellen statt. Pro Simulationsschritt kann ein Boid also keine Zelle überspringen, was zu stabilen Simulationsergebnissen führen soll.
+%
+%
+%%\subsubsection{Verteilung in eine Nachbarzelle}
+%
+%Ein besonders einfaches Verteilungsgesetz ist die Verteilung der Menge $D_V$ in eine Nachbarzelle. Diese Methode bringt dabei den Vorteil eines geringen Rechenaufwands mit sich.
+%
+%%Solange $\length{V}$ kleiner als 1 ist, kommt auch bei dieser einfachen Methode ein Boid-Fluss zustande, weil dann nur ein Teil von $D$ in eine benachbarte Zelle fließen kann.
+%
+%%Es folgt anhand eines Beispiels die Beschreibung des festgelegten Verteilungsgesetzes:
+%
+%%Gegeben sei eine Zelle, $X$, die sich an der Position $x=(u_x \qquad v_x)$, in einem zweidimensionalem Zellensystem befindet. Ihr Steuervektor, $\vec{V}(x)$, zeigt ungefähr auf die obere, rechte Nachbarzelle von $X$. $\vec{V}(x)$ sei also ungefähr $(1 \qquad -1)$.
+%
+%%\bild{bilder/VerteilungInEineNachbarzelle}{7cm}{Auch wenn $V$ nicht exakt auf die orange markierte Zelle zeigt, bekommt diese 100\% von $D_V$ gut geschrieben.}
+%
+%%Die Zelle $X$ wird dann $D_{leave}(x) = D_V(x)$ (Siehe Formel \ref{Form_DLeaveFinal}) Zellen verlieren und an die Nachbarzelle, auf die $V(x)$ zeigt, abgeben. Der Zelle, die sich bei $x + (1 \qquad -1)$ aufhält, werden dann $D_V(x)$ Boids gutgeschrieben.
+%
+%%Aufgrund der Funktionsweise von Shadern kann eine Zelle, $X$, keine Werte in eine Nachbarzelle schreiben. Sie kann daher $D_V(x)$ nicht an ihre Nachbarzelle übergeben. Stattdessen müsste die Nachbarzelle selbst   erkennen, dass der Steuervektor $\vec{V}(x)$ von Zelle $X$ auf sie selbst zeigt. Denn nur die Nachbarzelle selbst, kann $D_V(x)$ zu ihren Boid-Bestand hinzufügen.
+%
+%Eine Zelle, $X$, muss all Ihre direkten Nachbarn durchsuchen, um in Erfahrung zu bringen, ob Steuervektoren aus ihrer Nachbarschaft auf sie selbst zeigen. Die Nachbarsuche kann mithilfe von unterschiedlich orientierten Testvektoren, $\vec{T}_i$, erfolgen, so wie in Abbildung \ref{AdvektVergleichsvektoren} dargestellt.
+%
+%\bild{bilder/AdvektVergleichsvektoren}{8.5cm}{Die rot eingefärbte Zelle untersucht ihre Nachbarschaft mit $N_c$ Testvektoren, $T_i$. Die Testvektoren repräsentieren auch die möglichen Bewegungsrichtungen die ein Boid einschlagen kann. Wenn nur 4 Testvektoren verwendet werden, heißt das auch, dass sich die Boids in nur 4 unterschiedliche Richtungen bewegen können.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Jeder Testvektor heißt $\vec{T}_i$ und ist normiert. In Abbildung \ref{AdvektVergleichsvektoren} werden $N_c=8$ Testvektoren eingesetzt. Die Position einer durchsuchten Nachbarzelle ist $x+\vec{T}_i/R$. $R$ ist die Auflösung der verwendeten Texturen.
@@ -421,19 +422,19 @@ Eine Zelle, $X$, muss all Ihre direkten Nachbarn durchsuchen, um in Erfahrung zu
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Für die Boid-Aufnahme wird Zelle $X$ die Menge der vom Nachbar ausgesendeten Boids, $D_{Enter_i}$, berechnen, um genau diese Menge aufzunehmen. 
-Stellt sich heraus, dass ein benachbarter Steuervektor auf Zelle $X$ zeigt, nimmt Sie $D_{Enter_i}$ Zellen vom Nachbar auf.
-
-\begin{equation}
-D_{Enter_i} = D_{Leave}(x+\dfrac{\vec{T}_i}{R}) = D(x+\dfrac{\vec{T}_i}{R}) \cdot |\vec{V}(x+\dfrac{\vec{T}_i}{R})| 
-\label{Form_D_V_Nachbar}
-\end{equation}
-
-Nachdem Zelle $X$ all ihre $N_c$ Nachbarn untersucht hat, sind $n_c$ Nachbarzellen bekannt, die ihre Boids an $X$ abgeben. Es gilt $0<=n_c<=N_c$. Aus jedem, der $n_c$ Nachbarn, entsteht ein $D_{Enter_i}$. Zelle $X$ nimmt dann insgesamt $D_{Enter}(x)$ Boids aus ihrer Nachbarschaft auf:
-
-\begin{equation}
-D_{Enter}(x) = \sum_{i=1}^{n_c} ( D_{Enter_i})
-\label{Form_D_EnterFinal}
-\end{equation}
+%Stellt sich heraus, dass ein benachbarter Steuervektor auf Zelle $X$ zeigt, nimmt Sie $D_{Enter_i}$ Zellen vom Nachbar auf.
+%
+%\begin{equation}
+%D_{Enter_i} = D_{Leave}(x+\dfrac{\vec{T}_i}{R}) = D(x+\dfrac{\vec{T}_i}{R}) \cdot |\vec{V}(x+\dfrac{\vec{T}_i}{R})| 
+%\label{Form_D_V_Nachbar}
+%\end{equation}
+%
+%Nachdem Zelle $X$ all ihre $N_c$ Nachbarn untersucht hat, sind $n_c$ Nachbarzellen bekannt, die ihre Boids an $X$ abgeben. Es gilt $0<=n_c<=N_c$. Aus jedem, der $n_c$ Nachbarn, entsteht ein $D_{Enter_i}$. Zelle $X$ nimmt dann insgesamt $D_{Enter}(x)$ Boids aus ihrer Nachbarschaft auf:
+%
+%\begin{equation}
+%D_{Enter}(x) = \sum_{i=1}^{n_c} ( D_{Enter_i})
+%\label{Form_D_EnterFinal}
+%\end{equation}
 
 %Um individuellere Bewegungen zu erhalten, lohnt es sich, alle 8 zur Verfügung stehenden Nachbarn durchzusuchen. Dann ist $N_c=8$. Das bedeutet, dass sich ein Boid pro Zeitschritt in eine von 8 unterschiedlichen Bewegungsrichtungen bewegen kann. Nämlich in die Richtungen, in die die 8 eingesetzten Testvektoren zeigen. 
 %Es kann aber auch festgelegt werden, dass sich ein Boid nur in eine der 4 Richtungen $\vec{T}_1=(1 , 0)$, $\vec{T}_2=(-1,0)$, $\vec{T}_3=(0,1)$ oder $\vec{T}_4=(0,-1)$ bewegen kann. Dann wäre $N_c=4$ und der Vergleichswinkel $\beta/2$ größer.

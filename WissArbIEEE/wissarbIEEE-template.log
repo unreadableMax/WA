@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.27)  30 NOV 2018 13:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.27)  30 NOV 2018 17:44
 entering extended mode
 **./wissarbIEEE-template.tex
 (wissarbIEEE-template.tex
@@ -576,151 +576,96 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 93--94
-[]\OT1/ptm/m/n/10 Im Rah-men dieser Ar-beit wird Reynolds Boid-
+Underfull \hbox (badness 10000) in paragraph at lines 102--103
+[]\OT1/ptm/m/n/10 Um die Be-we-gungsabl[]aufe von nat[]urlichen
  []
 
 
-Underfull \hbox (badness 1838) in paragraph at lines 93--94
-\OT1/ptm/m/n/10 n[]otigen Ar-beitss-chritte m[]oglichst ef-fizient von Shadern
+Underfull \hbox (badness 1472) in paragraph at lines 102--103
+\OT1/ptm/m/n/10 Tier-schw[]armen zu simulieren, hat sich das so-ge-nan-nte
  []
 
-
-Underfull \hbox (badness 2582) in paragraph at lines 95--97
-[]\OT1/ptm/m/n/10 Wegen der beson-deren Funk-tion-sweise von Shadern
- []
-
-LaTeX Font Info:    Try loading font information for U+msa on input line 138.
+LaTeX Font Info:    Try loading font information for U+msa on input line 136.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 138.
+LaTeX Font Info:    Try loading font information for U+msb on input line 136.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<bilder/Schwarmdarstellung.png, id=59, 904.88063pt x 450.18187pt>
+<bilder/Schwarmdarstellung.png, id=51, 904.88063pt x 450.18187pt>
 File: bilder/Schwarmdarstellung.png Graphic file (type png)
 <use bilder/Schwarmdarstellung.png>
-Package pdftex.def Info: bilder/Schwarmdarstellung.png  used on input line 142.
+Package pdftex.def Info: bilder/Schwarmdarstellung.png  used on input line 140.
 
 (pdftex.def)             Requested size: 142.26378pt x 70.7735pt.
 
-Underfull \hbox (badness 4913) in paragraph at lines 151--154
-[]\OT1/ptm/m/n/10 Das Steuersig-nal, das aus der Ver-hal-tensregel der
- []
-
-[1{C:/Users/maxle/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
-
-
- <./bilder/Schwarmdarstellung.png>]
-<bilder/ChesionAbb.png, id=77, 405.515pt x 405.515pt>
-File: bilder/ChesionAbb.png Graphic file (type png)
-<use bilder/ChesionAbb.png>
-Package pdftex.def Info: bilder/ChesionAbb.png  used on input line 164.
-(pdftex.def)             Requested size: 85.35826pt x 85.35866pt.
-
-Underfull \hbox (badness 1389) in paragraph at lines 273--274
-[]\OT1/ptm/m/n/10 Der Steuervek-tor, $[]$, verur-sacht den Trans-port einer
- []
-
-<bilder/LeafEqEnter.png, id=84, 1449.415pt x 329.23pt>
-File: bilder/LeafEqEnter.png Graphic file (type png)
-<use bilder/LeafEqEnter.png>
-Package pdftex.def Info: bilder/LeafEqEnter.png  used on input line 277.
-(pdftex.def)             Requested size: 241.84842pt x 54.93349pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-LaTeX Warning: Reference `LeafEqEnter' on page 2 undefined on input line 286.
-
-[2 <./bilder/ChesionAbb.png>]
-
-LaTeX Warning: Reference `LeafEqEnter' on page 3 undefined on input line 295.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 295--296
-[]\OT1/ptm/m/n/10 Daher sollte bei der Sim-u-la-tion da-rauf geachtet
+Underfull \hbox (badness 4913) in paragraph at lines 149--152
+[]\OT1/ptm/m/n/10 Der Steuervek-tor, der aus der Ver-hal-tensregel der
  []
 
-
-Underfull \hbox (badness 3482) in paragraph at lines 295--296
-[]\OT1/ptm/m/n/10 uberspringt. Diese Regel sollte bei der Konzip-ierung
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 295--296
-\OT1/ptm/m/n/10 von Verteilungsmeth-o-den ber[]ucksichtigt wer-den.
- []
+<bilder/ChesionAbb.png, id=54, 405.515pt x 405.515pt>
+File: bilder/ChesionAbb.png Graphic file (type png)
+<use bilder/ChesionAbb.png>
+Package pdftex.def Info: bilder/ChesionAbb.png  used on input line 162.
+(pdftex.def)             Requested size: 85.35826pt x 85.35866pt.
+[1{C:/Users/maxle/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
-LaTeX Warning: Reference `subsec_DefUVorschr' on page 3 undefined on input line
- 300.
+ <./bilder/Schwarmdarstellung.png> <./bilder/ChesionAbb.png>]
+<bilder/LeafEqEnter.png, id=79, 1449.415pt x 329.23pt>
+File: bilder/LeafEqEnter.png Graphic file (type png)
+<use bilder/LeafEqEnter.png>
+Package pdftex.def Info: bilder/LeafEqEnter.png  used on input line 278.
+(pdftex.def)             Requested size: 142.26378pt x 32.31204pt.
 
 
-Underfull \hbox (badness 1783) in paragraph at lines 354--356
-[]\OT1/ptm/m/n/10 Wie $\OML/cmm/m/it/10 D[]$ \OT1/ptm/m/n/10 berech-net wird, h
-[]angt davon ab, nach
- []
+LaTeX Warning: Reference `LeafEqEnter' on page 2 undefined on input line 287.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 362--363
-[]\OT1/ptm/m/n/10 Ein beson-ders ein-faches Verteilungs-ge-setz ist die
- []
+LaTeX Warning: Reference `sec_performance' on page 2 undefined on input line 51
+7.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 362--363
-\OT1/ptm/m/n/10 Verteilung der Menge $\OML/cmm/m/it/10 D[]$ \OT1/ptm/m/n/10 in 
-eine Nach-barzelle.
- []
-
-
-LaTeX Warning: Reference `AdvektVergleichsvektoren' on page 3 undefined on inpu
-t line 376.
-
-<bilder/AdvektVergleichsvektoren.png, id=106, 805.0075pt x 242.9075pt>
-File: bilder/AdvektVergleichsvektoren.png Graphic file (type png)
-<use bilder/AdvektVergleichsvektoren.png>
-Package pdftex.def Info: bilder/AdvektVergleichsvektoren.png  used on input lin
-e 378.
-(pdftex.def)             Requested size: 241.84842pt x 72.97658pt.
-[3 <./bilder/LeafEqEnter.png> <./bilder/AdvektVergleichsvektoren.png>]
-
-LaTeX Warning: Reference `sec_performance' on page 4 undefined on input line 51
-6.
-
-
-LaTeX Warning: Reference `sec_LoseBoids' on page 4 undefined on input line 525.
+LaTeX Warning: Reference `sec_LoseBoids' on page 2 undefined on input line 526.
 
 
 
-Underfull \hbox (badness 7777) in paragraph at lines 525--526
+Underfull \hbox (badness 7777) in paragraph at lines 526--527
 []\OT1/ptm/m/n/10 Trotz allem ist das beste-hende Sys-tem dur-chaus
  []
 
-(wissarbIEEE-template.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 576.
- [4
+(wissarbIEEE-template.bbl [2 <./bilder/LeafEqEnter.png>])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 577.
+ [3
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 576.
- (wissarbIEEE-template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 576.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 576.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 577.
+
+(wissarbIEEE-template.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 577.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 577.
 Package rerunfilecheck Info: File `wissarbIEEE-template.out' has not changed.
-(rerunfilecheck)             Checksum: A21BC17CE63A5EA5B06E9039B8513DD8;951.
+(rerunfilecheck)             Checksum: 3E86A5A96E079A461B30070D89BAA1B1;841.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 576.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 577.
  ) 
 Here is how much of TeX's memory you used:
- 16034 strings out of 492970
- 284775 string characters out of 3135854
+ 16006 strings out of 492970
+ 284219 string characters out of 3135854
  512455 words of memory out of 3000000
- 19772 multiletter control sequences out of 15000+200000
+ 19756 multiletter control sequences out of 15000+200000
  568776 words of font info for 94 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,6n,63p,775b,336s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -733,13 +678,12 @@ ts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmm
 i8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C
 :/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program 
 Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Program Files/MiKTe
-X 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
-/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8
-a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on wissarbIEEE-template.pdf (4 pages, 477905 bytes).
+KTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
+pe1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/ut
+mr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
+Output written on wissarbIEEE-template.pdf (3 pages, 453505 bytes).
 PDF statistics:
- 187 PDF objects out of 1000 (max. 8388607)
- 41 named destinations out of 1000 (max. 500000)
- 133 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 152 PDF objects out of 1000 (max. 8388607)
+ 30 named destinations out of 1000 (max. 500000)
+ 112 words of extra memory for PDF output out of 10000 (max. 10000000)
 

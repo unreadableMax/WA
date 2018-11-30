@@ -22,54 +22,40 @@
 \citation{Reynolds99steeringbehaviors}
 \citation{Reynolds87flocks}
 \citation{Oliver14Tschesche}
-\citation{Oliver14Tschesche}
 \citation{Reynolds87flocks}
-\citation{GPUGems1}
-\@writefile{toc}{\contentsline {section}{\numberline {I}Einleitung2}{1}{section.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {II}Related work}{1}{section.2}}
-\@writefile{toc}{\contentsline {section}{\numberline {III}Method}{1}{section.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-A}Das Boid-System als Zellensystem}{1}{subsection.3.1}}
-\newlabel{sec_noParticelCells}{{III-A}{1}{Das Boid-System als Zellensystem}{subsection.3.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction and related work}{1}{section.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {II}Method}{1}{section.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {II-A}Das Boid-System als Zellensystem}{1}{subsection.2.1}}
+\newlabel{sec_noParticelCells}{{II-A}{1}{Das Boid-System als Zellensystem}{subsection.2.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Left: A texture, that represents the boid-density, $D$. Each pixel is a real skalar value that represents the amount of boids, contained in this cell. Right: A texture, called $V$, that holds the control-vectors, $v$, for each cell. Each boid will follow its own control-vector}}{1}{figure.1}}
 \newlabel{bilder/Schwarmdarstellung}{{1}{1}{Left: A texture, that represents the boid-density, $D$. Each pixel is a real skalar value that represents the amount of boids, contained in this cell. Right: A texture, called $V$, that holds the control-vectors, $v$, for each cell. Each boid will follow its own control-vector}{figure.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-B}Cohasion}{1}{subsection.3.2}}
-\citation{Reynolds99steeringbehaviors}
+\@writefile{toc}{\contentsline {subsection}{\numberline {II-B}Cohasion}{1}{subsection.2.2}}
+\newlabel{Form_Di}{{1}{1}{Cohasion}{equation.2.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Die rot markierte Zelle hei\IeC {\ss }t $X$ und befindet sich an Position $x$. Sie besitzt 4 Wahrnehmungsvektoren, $\mathaccentV {vec}17E{s}_i$. Mit ihnen ist die Zelle in der Lage Stichproben, $D_i$, aus der Boid-Textur, $D$, zu entnehmen.}}{1}{figure.2}}
+\newlabel{bilder/ChesionAbb}{{2}{1}{Die rot markierte Zelle heißt $X$ und befindet sich an Position $x$. Sie besitzt 4 Wahrnehmungsvektoren, $\vec {s}_i$. Mit ihnen ist die Zelle in der Lage Stichproben, $D_i$, aus der Boid-Textur, $D$, zu entnehmen}{figure.2}{}}
 \citation{Reynolds99steeringbehaviors}
 \citation{Reynolds99steeringbehaviors}
 \citation{GPUGems1}
-\newlabel{Form_Di}{{1}{2}{Cohasion}{equation.3.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Die rot markierte Zelle hei\IeC {\ss }t $X$ und befindet sich an Position $x$. Sie besitzt 4 Wahrnehmungsvektoren, $\mathaccentV {vec}17E{s}_i$. Mit ihnen ist die Zelle in der Lage Stichproben, $D_i$, aus der Boid-Textur, $D$, zu entnehmen.}}{2}{figure.2}}
-\newlabel{bilder/ChesionAbb}{{2}{2}{Die rot markierte Zelle heißt $X$ und befindet sich an Position $x$. Sie besitzt 4 Wahrnehmungsvektoren, $\vec {s}_i$. Mit ihnen ist die Zelle in der Lage Stichproben, $D_i$, aus der Boid-Textur, $D$, zu entnehmen}{figure.2}{}}
-\newlabel{Form_Cohesion}{{2}{2}{Cohasion}{equation.3.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-C}Separation}{2}{subsection.3.3}}
-\newlabel{Form_Separation}{{3}{2}{Separation}{equation.3.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-D}Alignment}{2}{subsection.3.4}}
-\newlabel{subsec_Ausrichtung}{{III-D}{2}{Alignment}{subsection.3.4}{}}
-\newlabel{Form_Align}{{4}{2}{Alignment}{equation.3.4}{}}
-\newlabel{Form_Vi}{{5}{2}{Alignment}{equation.3.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-E}rules of boid movement}{2}{subsection.3.5}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III-E.1}Die Anzahl der Boids ist konstant}{2}{subsubsection.3.5.1}}
-\newlabel{Form_BoidFlussKonst}{{6}{2}{Die Anzahl der Boids ist konstant}{equation.3.6}{}}
-\newlabel{subsubsec_D_V}{{III-E.2}{2}{Ein Steuervektor entleert und befüllt dieselbe Menge Boids}{subsubsection.3.5.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III-E.2}Ein Steuervektor entleert und bef\IeC {\"u}llt dieselbe Menge Boids}{2}{subsubsection.3.5.2}}
-\newlabel{Form_SummeD_V_i}{{7}{2}{Ein Steuervektor entleert und befüllt dieselbe Menge Boids}{equation.3.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Es werden drei unterschiedliche Verteilungsarten gezeigt. Die rot markierte Zelle verteilt Boids in Richtung von $V$. Die Verteilende Zelle verliert dabei $D_V$ Boids. Genau diese Menge wird dann in die orange markierten Zellen verteilt. Hierf\IeC {\"u}r k\IeC {\"o}nnen unterschiedliche Verteilungsarten konzipiert werden.}}{3}{figure.3}}
-\newlabel{bilder/LeafEqEnter}{{3}{3}{Es werden drei unterschiedliche Verteilungsarten gezeigt. Die rot markierte Zelle verteilt Boids in Richtung von $V$. Die Verteilende Zelle verliert dabei $D_V$ Boids. Genau diese Menge wird dann in die orange markierten Zellen verteilt. Hierfür können unterschiedliche Verteilungsarten konzipiert werden}{figure.3}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III-E.3}Maximale Bewegungsreichweite eines Boids}{3}{subsubsection.3.5.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III-F}Boid-movement formula}{3}{subsection.3.6}}
-\newlabel{Form_AdvektUeberischt}{{8}{3}{Boid-movement formula}{equation.3.8}{}}
-\newlabel{Form_DLeavePropV}{{9}{3}{Boid-movement formula}{equation.3.9}{}}
-\newlabel{Form_DLeaveFinal}{{10}{3}{Boid-movement formula}{equation.3.10}{}}
-\newlabel{Form_lengthVOne}{{11}{3}{Boid-movement formula}{equation.3.11}{}}
-\newlabel{Form_DLeaveEqDV}{{12}{3}{Boid-movement formula}{equation.3.12}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Die rot eingef\IeC {\"a}rbte Zelle untersucht ihre Nachbarschaft mit $N_c$ Testvektoren, $T_i$. Die Testvektoren repr\IeC {\"a}sentieren auch die m\IeC {\"o}glichen Bewegungsrichtungen die ein Boid einschlagen kann. Wenn nur 4 Testvektoren verwendet werden, hei\IeC {\ss }t das auch, dass sich die Boids in nur 4 unterschiedliche Richtungen bewegen k\IeC {\"o}nnen.}}{3}{figure.4}}
-\newlabel{bilder/AdvektVergleichsvektoren}{{4}{3}{Die rot eingefärbte Zelle untersucht ihre Nachbarschaft mit $N_c$ Testvektoren, $T_i$. Die Testvektoren repräsentieren auch die möglichen Bewegungsrichtungen die ein Boid einschlagen kann. Wenn nur 4 Testvektoren verwendet werden, heißt das auch, dass sich die Boids in nur 4 unterschiedliche Richtungen bewegen können}{figure.4}{}}
-\newlabel{Form_D_V_Nachbar}{{13}{3}{Boid-movement formula}{equation.3.13}{}}
-\newlabel{Form_D_EnterFinal}{{14}{3}{Boid-movement formula}{equation.3.14}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Evaluation}{3}{section.4}}
 \bibdata{mybibfile}
+\newlabel{Form_Cohesion}{{2}{2}{Cohasion}{equation.2.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {II-C}Separation}{2}{subsection.2.3}}
+\newlabel{Form_Separation}{{3}{2}{Separation}{equation.2.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {II-D}Alignment}{2}{subsection.2.4}}
+\newlabel{subsec_Ausrichtung}{{II-D}{2}{Alignment}{subsection.2.4}{}}
+\newlabel{Form_Align}{{4}{2}{Alignment}{equation.2.4}{}}
+\newlabel{Form_Vi}{{5}{2}{Alignment}{equation.2.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {II-E}rules of boid movement}{2}{subsection.2.5}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {II-E.1}Die Anzahl der Boids ist konstant}{2}{equation.2.6}}
+\newlabel{Form_BoidFlussKonst}{{6}{2}{Die Anzahl der Boids ist konstant}{equation.2.6}{}}
+\newlabel{subsubsec_D_V}{{II-E.2}{2}{Ein Steuervektor entleert und befüllt dieselbe Menge Boids}{subsubsection.2.5.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {II-E.2}Ein Steuervektor entleert und bef\IeC {\"u}llt dieselbe Menge Boids}{2}{subsubsection.2.5.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Es lassen sich beliebig viele Verteilungsmethoden modellieren. Die rot markierte Zelle verteilt Boids in Richtung von $V$. Die Verteilende Zelle verliert dabei $D_V$ Boids. Genau diese Menge wird dann in die orange markierten Zellen verteilt. Hierf\IeC {\"u}r k\IeC {\"o}nnen unterschiedliche Verteilungsarten konzipiert werden.}}{2}{figure.3}}
+\newlabel{bilder/LeafEqEnter}{{3}{2}{Es lassen sich beliebig viele Verteilungsmethoden modellieren. Die rot markierte Zelle verteilt Boids in Richtung von $V$. Die Verteilende Zelle verliert dabei $D_V$ Boids. Genau diese Menge wird dann in die orange markierten Zellen verteilt. Hierfür können unterschiedliche Verteilungsarten konzipiert werden}{figure.3}{}}
+\newlabel{Form_SummeD_V_i}{{7}{2}{Ein Steuervektor entleert und befüllt dieselbe Menge Boids}{equation.2.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {II-E.3}Maximale Bewegungsreichweite eines Boids}{2}{subsubsection.2.5.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Evaluation}{2}{section.3}}
 \bibcite{Reynolds87flocks}{1}
 \bibcite{Reynolds99steeringbehaviors}{2}
 \bibcite{Oliver14Tschesche}{3}
 \bibcite{GPUGems1}{4}
-\@writefile{toc}{\contentsline {section}{References}{4}{section*.1}}
+\@writefile{toc}{\contentsline {section}{References}{3}{section*.1}}
