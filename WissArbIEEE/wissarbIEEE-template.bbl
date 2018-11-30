@@ -5,19 +5,7 @@
 \expandafter\ifx\csname href\endcsname\relax
   \def\href#1#2{#2} \def\path#1{#1}\fi
 
-\bibitem{Reynolds87flocks}
-C.~W. Reynolds, Flocks, herds, and schools: a distributed behavioral model,
-  Computer Graphics.
-
-\bibitem{Reynolds99steeringbehaviors}
-C.~Reynolds, Steering behaviors for autonomous characters (1999).
-
-\bibitem{Oliver14Tschesche}
-O.~Tschesche, Parallele simulation und visualisierung von großen
-  tierschwärmen mit opencl, Bachelorthesis.
-
-\bibitem{GPUGems1}
-R.~Fernando, GPU Gems: Programming Techniques, Tips and Tricks for Real-Time
-  Graphics - Chapter 38, Pearson Higher Education, 2004.
+\bibitem{unity}
+C.~Seifert, Spiele entwickeln mit unity 5, 2. auflage, München: Hanser Verlag.
 
 \end{thebibliography}

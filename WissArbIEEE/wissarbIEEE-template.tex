@@ -50,7 +50,7 @@
 Automated conversion of CAD data in 3D low-poly models
 }
 
-\author{Maximilian Legnar and Prof. Dr. Rasenat}% <-this % stops a space
+\author{Dennis Becker}% <-this % stops a space
 
 %\author{Maximilian Legnar$^{1}$ and Dr. Rasenat$^{2}$% <-this % stops a space
 %
@@ -73,7 +73,47 @@ An automated conversion of CAD data into 3D low-poly models would offer great po
 
 \end{abstract}
 
+\section{Low-Poly-models}
+The topic and aim of this study are to investigate the extent to which existing CAD models can be fully automatically converted into high-performance and visually high-quality low-poly models. Low-poly-models are polygon (faces) meshes in 3D computer graphics, that has a relatively small number of polygons. However, as you can see in Figure 1, the optical quality of an object decreases significantly as the polygon number decreases. Round objects appear increasingly angular, many details are lost. In order to counteract this effect, numerous methods are used in game development to make low-poly models look high-quality. As many as possible of these methods should be used in the automatic conversion.
 
+\bild{bilder/b1}{8.5cm}{ .. }
+
+The created low poly models could be used for high quality realtime rendering, for example in industrial virtual reality applications. But also in the area of simulations, configurators or in mobile applications, the low-poly models could be used.
+
+The creation of low-poly models is state of the art in the game industry. The low number of polygons and the associated low computational complexity allows almost photorealistic scenes in computer games to be rendered in real time \cite{unity}.  Here, however, the models are created manually by experienced artists. Although these models are accordingly very high quality, but also elaborate in their creation. It also requires extensive expertise for the manual creation of such models.
+
+\section{automated conversion}
+In contrast to this, software for the fully automatic conversion of CAD models could also be easily operated by laymen and would also be much faster. Thus, the automatic conversion could serve as the basis for high-performance 3D programs in the industrial and architectural sectors.
+
+In order to examine this topic more closely, a concept was first worked out. The concept is based on the use of the open-source software Blender in combination with a specially developed Java control program.
+
+To test the concept, a prototype implementation was made. The prototype can automatically convert polygon CAD models into low poly models. In the subsequent practical tests, the low-poly models not only had a significantly lower polygon count, but were also cleaned up for various possible sources of error. In this process, the metadata, for example the hierarchy of the CAD data, material settings and naming, can be adopted. In addition, the prototype shows some problems and limitations. Figures two and three show, by way of example, the CAD model of a turboshaft engine before and after the conversion. The corresponding parameters of the conversion can be found in Table 1. It shows that a polygon reduction of 90 \% and even more is possible. Also, display errors could be removed at the bottom of the model.
+
+CAD-Modell: \hyperlink{https://grabcad.com/library/turbo-shaft-helicopter-engine-1}{https://grabcad.com/library/turbo-shaft-helicopter-engine-1} 
+
+\bild{bilder/b2}{8cm}{ Turboshaft engine, 
+cad-modell 1 }
+\clearpage
+\bild{bilder/b3}{8cm}{ Turboshaft engine, low-poly-modell }
+
+
+
+\begin{table}[]
+\caption{Vergleich Polygon-Modell und Low-Poly-Modell}
+\label{my-label}
+\begin{tabular}{llll}
+\hline
+                                      & Polygon-Model & Low-Poly-Model & Reduction \\ \hline
+\multicolumn{1}{l|}{Polygons}         & 988.129       & 92.803         & 90,6 \%   \\
+\multicolumn{1}{l|}{Vertices}         & 495.917       & 47.901         & 4,59 \%   \\
+\multicolumn{1}{l|}{File size (.obj)} & 104 MB        & 5,48 MB        & 94,7 \%  
+\end{tabular}
+\end{table}
+
+
+\section{Conclusion}
+
+Overall, it can be said that an fast and easy automatic conversion of CAD data into high-quality low-poly models is possible. But it also turns out that automating low-poly techniques from game development is a big challenge. The developed prototype could serve as the basis for a comprehensive implementation in the future.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -96,18 +136,14 @@ An automated conversion of CAD data into 3D low-poly models would offer great po
 %
 %%% Table
 %\begin{table}[h]
-%\caption{Example table.}
+%\caption{Vergleich Polygon-Modell und Low-Poly-Modell}
 %   \begin{tabularx}{0.48\textwidth}{llr}
 %   		 \toprule 
 %   		 Symbol & \multicolumn{1}{X}{Description} & Value [m] \\
 %		 \midrule
 %		  $A_x$ & Horizontal coordinate of A$^{*}$ & 0.0745 \\
-%		  $A_z$ & Vertical coordinate of A$^{*}$ & 0.2650 \\  \noalign{\smallskip}
-%		  
+%		  $A_z$ & Vertical coordinate of A$^{*}$ & 0.2650 \\ 
 %		  $C_x$ & Horizontal coordinate of C$^{\#}$ & 0.0700 \\
-%		  $C_z$ & Vertical coordinate of C$^{\#}$ & 0.1000 \\
-%		  $D_x$ & Horizontal coordinate of D$^{\dag}$ & 0.0602 \\
-%		  $D_z$ & Vertical coordinate of D$^{\dag}$ & 0.0860 \\
 %		 \bottomrule
 %   \end{tabularx}  \label{tab:initmodel}
 %\end{table}
