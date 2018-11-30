@@ -47,7 +47,7 @@
 \newcommand{\length}[1]{\lvert \vec{#1} \rvert}
 
 \title{\LARGE \bf
-Real time boid-simulations with shaders
+Real time boid-simulations with compute shading
 }
 
 \author{Maximilian Legnar and Prof. Dr. Rasenat}% <-this % stops a space
@@ -110,12 +110,12 @@ Usually Reynolds Boid system is treated like a particle system \cite{Reynolds87f
 
 
 \section{Method}
-\subsection{Das Boid-System als Zellensystem}
+\subsection{The boid system as a cell system}
 \label{sec_noParticelCells}
 
 %Das Boid-System ist mit dem Partikelsystem verwand \cite{Reynolds87flocks} und kann daher für gewöhnlich auch als solches behandelt werden.
 
-The Boid system is related to the particle system \cite{Reynolds87flocks} and therefore can usually be treated as such. 
+The boid system is related to the particle system \cite{Reynolds87flocks} and therefore can usually be treated as such. 
  
 %Wesentlicher Bestandteil eines Partikelsystems ist die Bewegung, also die Positionsänderung, von Partikeln. 
 %Ein Shader kann ein Pixel allerdings nicht ohne weiteres bewegen. Das hängt damit zusammen, dass ein Pixel-Thread nicht in der Lage ist, Werte in andere Pixel zu schreiben. Jedes Pixel kann sein Rechenergebnis nur in sich selbst schreiben.
@@ -131,7 +131,7 @@ Because of this restriction, we say goodbye to the idea of the particle system a
 
 
 
-\bild{bilder/Schwarmdarstellung}{5cm}{Left: A texture, that represents the boid-density, $D$. Each pixel is a real skalar value that represents the amount of boids, contained in this cell. Right: A texture, called $V$, that holds the control-vectors, $v$, for each cell. Each boid will follow its own control-vector}
+\bild{bilder/Schwarmdarstellung}{8.5cm}{Left: A texture, that represents the boid-density, $D$. Each pixel is a real skalar value that represents the amount of boids, contained in this cell. Right: A texture, called $V$, that holds the control-vectors, $v$, for each cell. Each boid will follow its own control-vector}
 
 %In den nächsten Kapiteln werden Reynolds drei Grundverhaltensregeln, cohasion, seperation und alignment, umformuliert. Aus jeder Verhaltensregel werden sogenannte Steuervektoren, $\vec{v}$, generiert, wie in Abbildung \ref{bilder/Schwarmdarstellung} gezeigt. Die Summe aller Steuervektoren ergibt den Gesamtsteuervektor, $\vec{V}$, in dessen Richtung sich Boids bewegen.
 
@@ -161,7 +161,10 @@ D_i(x) = D(x + \vec{s}_i \cdot \frac{1}{R})
 
 %In Abbildung \ref{ChesionAbb} wird Zelle $X$ dargestellt, wobei in diesem Beispiel $N=4$ Wahrnehmungsvektoren gegeben sind.
 
-\bild{bilder/ChesionAbb}{3cm}{Die rot markierte Zelle heißt $X$ und befindet sich an Position $x$. Sie besitzt 4 Wahrnehmungsvektoren, $\vec{s}_i$. Mit ihnen ist die Zelle in der Lage Stichproben, $D_i$, aus der Boid-Textur, $D$, zu entnehmen.}
+\bild{bilder/ChesionAbb}{4cm}{
+%Die rot markierte Zelle heißt $X$ und befindet sich an Position $x$. Sie besitzt 4 Wahrnehmungsvektoren, $\vec{s}_i$. Mit ihnen ist die Zelle in der Lage Stichproben, $D_i$, aus der Boid-Textur, $D$, zu entnehmen.
+This is how boids, which are inside a cell, sees the virtual world: The red marked cell is called $ X $ and is located at position $ x $. It has 4 perceptual vectors, $ \vec{s}_i $. With them, the cell is able to take samples, $ D_i $, from the boid texture, $ D $.
+}
 
 %Mithilfe von Stichproben, $D_i$, wird dann das Kohäsions-Steuersignal, $\vec{v}_c$, wie folgt berechnet:
 
@@ -193,7 +196,7 @@ Finally, the mean of all the stretched vectors is formed by dividing by the numb
 %Das Separations-Steuersignal, $\vec{v}_s$, arbeitet im Gegensatz zur Kohäsion mit Vektoren, die von den entdeckten Nachbarn weg und zum gesteuerten Boid hin zeigen. Die Größe des Steuervektors, $\vec{v}_s$, steigt umso mehr an, je näher ein Nachbar ist. Reynolds empfiehlt hierfür mit umgekehrter Proportionalität zu arbeiten \cite{Reynolds99steeringbehaviors}.
 %So entsteht schlussendlich Formel \ref{Form_Separation}:
 
-The separation control signal,  $\vec{v}_s$, works in contrast to cohesion with vectors pointing away from the discovered neighbours and towards the controlled boid. The size of the control vector,  $\vec{v}_s$, increases the closer a neighbour is. Reynolds recommends working with reverse proportionality \cite{Reynolds99steeringbehaviors}. This is how Formula \ref{Form_Separation} finally emerges:
+The separation control vectors,  $\vec{v}_s$, works in contrast to cohesion with vectors pointing away from the discovered neighbours and towards the controlled boid. The size of the control vector,  $\vec{v}_s$, increases the closer a neighbour is. Reynolds recommends working with reverse proportionality \cite{Reynolds99steeringbehaviors}. This is how Formula \ref{Form_Separation} finally emerges:
 
 \begin{equation}
 \vec{v}_s(x) = \sum_{i=1}^N (-D_i(x) \cdot e(\vec{s}_i) \cdot \frac{1}{\length{s_i}}) = - \sum_{i=1}^N(D_i(x) \cdot \frac{\vec{s}_i}{\length{s_i}^2})
@@ -271,20 +274,25 @@ After the average direction of motion of the neighbourhood has been determined, 
 
 %Würde immer der komplette Inhalt einer Zelle wandern, dann wäre auch immer dieselbe Menge Boids unterwegs. Nur beim Prinzip des Boid-Flusses kann sich der Inhalt einer Zelle auf mehrere Zellen verteilen, womit zu große Gruppenbildungen innerhalb einer Zelle vermieden werden können. Der Boid-Fluss soll sich auch vermischen können.
 
-Nachdem $V$ berechnet wurde, muss der Schwarm in Richtung der gegebenen Steuervektoren bewegt werden. Wie sich eine Menge Boids, $D_i$, die sich innerhalb einer Zelle befindet, verteilt, wird mithilfe folgender Regeln modelliert:
+%Nachdem $V$ berechnet wurde, muss der Schwarm in Richtung der gegebenen Steuervektoren bewegt werden. Wie sich eine Menge Boids, $D_i$, die sich innerhalb einer Zelle befindet, verteilt, wird mithilfe folgender Regeln modelliert:
+After calculating $ V $, the swarm must be moved in the direction of the given control vectors.
+How a group of boids, $ D_i $, will distribute through the cell system, is modeled with following rules:
 
 \subsubsection{The number of boids is constant}
 
 %Beim Transport der Boids sollte stets auf die Einhaltung des folgenden Gesetzes geachtet werden:
 
 \begin{equation}
-\sum_{i=1}^R \sum_{j=1}^R D(i,j)  = konstant
+\sum_{i=1}^R \sum_{j=1}^R D(i,j)  = const
 \label{Form_BoidFlussKonst}
 \end{equation}
 
-Formel \ref{Form_BoidFlussKonst} legt fest, dass die Anzahl aller vorhandenen Boids konstant bleiben muss.
+%Formel \ref{Form_BoidFlussKonst} legt fest, dass die Anzahl aller vorhandenen Boids konstant bleiben muss.
 
-\subsubsection{Ein Steuervektor entleert und befüllt dieselbe Menge Boids}
+Formel \ref{Form_BoidFlussKonst} specifies that the amount of all existing boids must remain constant.
+
+\subsubsection{
+A control vector empties and fills the same amount of boids}
 \label{subsubsec_D_V}
 
 %Ein Steuervektor, $\vec{V}$, verursacht den Transport einer Menge Boids, $D_V$.
@@ -292,9 +300,9 @@ Formel \ref{Form_BoidFlussKonst} legt fest, dass die Anzahl aller vorhandenen Bo
 %Eine Zelle darf niemals mehr Boids verlieren, als Sie besitzt.
 %Eine verteilte Menge Boids, $D_V$, kann auf $N$ andere Zellen verteilt werden:
 
-A control vector dumps and fills the same amount of boids: A control vector, $\vec{V}$, causes the transport of a lot of boids, $D_V$. The set $D_V$ is then distributed to $N$ other cells.
+A control vector, $\vec{V}$, causes the transport of a lot of boids, $D_V$. The set $D_V$ is then distributed to $N$ other cells.
 
-\bild{bilder/LeafEqEnter}{5cm}{Any number of distribution methods can be modeled. The red marked cell distributes boids in the direction of $\vec{V}$. The distributing cell loses $D_V$ Boids. Exactly this amount is then distributed into the orange labeled cells. For this, different types of distribution can be designed.
+\bild{bilder/LeafEqEnter}{8cm}{Any number of distribution methods can be modeled. The red marked cell distributes boids in the direction of $\vec{V}$. The distributing cell loses $D_V$ Boids. Exactly this amount is then distributed into the orange labeled cells. For this, different types of distribution can be designed.
 }
 
 %Die Summe aller $N$ Teilmengen, $D_{Vi}$, muss dabei genau so groß sein, wie die verteilte Menge $D_V$:
@@ -536,15 +544,15 @@ In the advection of textures, one pixel per time step should not be moved more t
 %Im Rahmen dieser Arbeit konnten fast alle gesetzten Ziele erreicht werden. Anhand des konzipierten Simulationsmodells konnte ein Prototyp implementiert werden, der fast alle Anforderungen aus Kapitel \ref{sec_Anforderungen} erfüllt. 
 
 %Der im Prototyp simulierte Schwarm kann durch Einsatz einfacher Zusatzverhaltensregeln von einem menschlichen Spieler gejagt oder verfolgt werden. 
-Die Bewegungen des Schwarms können bei entsprechender Parametrisierung realistisch und lebendig gestaltet werden. Ohne mit zufällig generierten Steuervektoren arbeiten zu müssen, bewegen sich manche Schwärme scheinbar in zufällige Richtungen, als ob die virtuellen Lebewesen ein eigenes Ziel verfolgen würden.
+%Die Bewegungen des Schwarms können bei entsprechender Parametrisierung realistisch und lebendig gestaltet werden. Ohne mit zufällig generierten Steuervektoren arbeiten zu müssen, bewegen sich manche Schwärme scheinbar in zufällige Richtungen, als ob die virtuellen Lebewesen ein eigenes Ziel verfolgen würden.
 
 %Die Performance des implementierten Prototyps erwies sich, entgegen aller Erwartungen, als überraschend gut. Die Messungen aus Kapitel \ref{sec_performance} lassen vermuten, dass sich das konzipierte Simulationsmodell durchaus in der Praxis anwenden lässt. Künftige Videospiele könnten von diesen interaktiven Schwarm-Wesen profitieren, zumal sich die entwickelte Simulation von herkömmlichen Shadern ausgeführt werden kann. Shader-Programme, die mithilfe der Unreal Engine 4 implementiert wurden, lassen sich ohne große Umstände auf einige Plattformen portieren. 
 
 The swarm simulated in the prototype can be hunted or tracked by a human player using simple additional rules. The movements of the swarm can be made realistic and vivid with appropriate parameterization. Without having to work with randomly generated control vectors, some swarms seem to be moving in random directions, as if the virtual beings were following their own target. 
 
-The performance of the implemented prototype proved to be surprisingly good, contrary to expectations. Performance measurements suggest that the designed simulation model can be applied in practice. Future video games could benefit from these interactive swarm creatures, especially as the developed simulation of traditional shaders can be performed. Shader programs implemented using the Unreal Engine 4 can be easily ported to some platforms. 
+The performance of the implemented prototype proved to be surprisingly good. Performance measurements (on a GTX 1050-TI) suggest that the designed simulation model can be applied in practice. Future video games could benefit from these interactive swarm creatures, especially as the developed simulation of traditional shaders can be performed. Shader programs implemented using the Unreal Engine 4 can be easily ported to some platforms. 
 
-Particularly notable was the loss of boids mentioned in chapter xy. For reasons of time, this problem could not be further investigated, which is why there is no concrete explanation for the disappearance of individuals.
+Particularly notable was the loss of boids. For reasons of time, this problem could not be further investigated, which is why there is no concrete explanation for the disappearance of individuals.
 
 
 %Von allen handelsüblichen Konsolen, bis hin zu Smartphones. Smartphone-Besitzer mithilfe des Touchscreens mit dem Schwarm interagieren zu lassen, ist durchaus umsetzbar. 
@@ -556,7 +564,7 @@ Particularly notable was the loss of boids mentioned in chapter xy. For reasons 
 %\section{Ausblick}
 
 %Trotz allem ist das bestehende System durchaus verbesserungswürdig. Besonders negativ aufgefallen ist der in Kapitel \ref{sec_LoseBoids} angesprochene Verlust von Boids. Diese Problematik konnte aus Zeitgründen nicht weiter untersucht werden, weswegen noch keine konkrete Erklärung für das Verschwinden von Individuen existiert.
-Particularly notable was the loss of boids mentioned. For reasons of time, this problem could not be further investigated, which is why there is no concrete explanation for the disappearance of individuals.
+
 
 %Außerdem könnte die Darstellung des Schwarms weiter verbessert werden. Die Schwarm-Textur wirkt zum Teil noch recht körnig und unregelmäßig. Es entstehen auch hin und wieder harte Kannten und Ecken.
 

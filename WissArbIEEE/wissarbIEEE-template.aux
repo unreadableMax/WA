@@ -23,22 +23,25 @@
 \citation{Reynolds87flocks}
 \citation{Oliver14Tschesche}
 \citation{Reynolds87flocks}
-\citation{Reynolds99steeringbehaviors}
 \@writefile{toc}{\contentsline {section}{\numberline {I}Introduction and related work}{1}{section.1}}
 \@writefile{toc}{\contentsline {section}{\numberline {II}Method}{1}{section.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {II-A}Das Boid-System als Zellensystem}{1}{subsection.2.1}}
-\newlabel{sec_noParticelCells}{{II-A}{1}{Das Boid-System als Zellensystem}{subsection.2.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {II-A}The boid system as a cell system}{1}{subsection.2.1}}
+\newlabel{sec_noParticelCells}{{II-A}{1}{The boid system as a cell system}{subsection.2.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Left: A texture, that represents the boid-density, $D$. Each pixel is a real skalar value that represents the amount of boids, contained in this cell. Right: A texture, called $V$, that holds the control-vectors, $v$, for each cell. Each boid will follow its own control-vector}}{1}{figure.1}}
 \newlabel{bilder/Schwarmdarstellung}{{1}{1}{Left: A texture, that represents the boid-density, $D$. Each pixel is a real skalar value that represents the amount of boids, contained in this cell. Right: A texture, called $V$, that holds the control-vectors, $v$, for each cell. Each boid will follow its own control-vector}{figure.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {II-B}Cohasion}{1}{subsection.2.2}}
 \newlabel{Form_Di}{{1}{1}{Cohasion}{equation.2.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Die rot markierte Zelle hei\IeC {\ss }t $X$ und befindet sich an Position $x$. Sie besitzt 4 Wahrnehmungsvektoren, $\mathaccentV {vec}17E{s}_i$. Mit ihnen ist die Zelle in der Lage Stichproben, $D_i$, aus der Boid-Textur, $D$, zu entnehmen.}}{1}{figure.2}}
-\newlabel{bilder/ChesionAbb}{{2}{1}{Die rot markierte Zelle heißt $X$ und befindet sich an Position $x$. Sie besitzt 4 Wahrnehmungsvektoren, $\vec {s}_i$. Mit ihnen ist die Zelle in der Lage Stichproben, $D_i$, aus der Boid-Textur, $D$, zu entnehmen}{figure.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces  This is how boids, which are inside a cell, sees the virtual world: The red marked cell is called $ X $ and is located at position $ x $. It has 4 perceptual vectors, $ \mathaccentV {vec}17E{s}_i $. With them, the cell is able to take samples, $ D_i $, from the boid texture, $ D $. }}{1}{figure.2}}
+\newlabel{bilder/ChesionAbb}{{2}{1}{This is how boids, which are inside a cell, sees the virtual world: The red marked cell is called $ X $ and is located at position $ x $. It has 4 perceptual vectors, $ \vec {s}_i $. With them, the cell is able to take samples, $ D_i $, from the boid texture, $ D $}{figure.2}{}}
 \newlabel{Form_Cohesion}{{2}{1}{Cohasion}{equation.2.2}{}}
+\citation{Reynolds99steeringbehaviors}
 \citation{Reynolds99steeringbehaviors}
 \citation{GPUGems1}
 \bibdata{mybibfile}
 \bibcite{Reynolds87flocks}{1}
+\bibcite{Reynolds99steeringbehaviors}{2}
+\bibcite{Oliver14Tschesche}{3}
+\bibcite{GPUGems1}{4}
 \@writefile{toc}{\contentsline {subsection}{\numberline {II-C}Separation}{2}{subsection.2.3}}
 \newlabel{Form_Separation}{{3}{2}{Separation}{equation.2.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {II-D}Alignment}{2}{subsection.2.4}}
@@ -48,14 +51,11 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {II-E}rules of boid movement}{2}{subsection.2.5}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {II-E.1}The number of boids is constant}{2}{equation.2.6}}
 \newlabel{Form_BoidFlussKonst}{{6}{2}{The number of boids is constant}{equation.2.6}{}}
+\newlabel{subsubsec_D_V}{{II-E.2}{2}{A control vector empties and fills the same amount of boids}{subsubsection.2.5.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {II-E.2} A control vector empties and fills the same amount of boids}{2}{subsubsection.2.5.2}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Any number of distribution methods can be modeled. The red marked cell distributes boids in the direction of $\mathaccentV {vec}17E{V}$. The distributing cell loses $D_V$ Boids. Exactly this amount is then distributed into the orange labeled cells. For this, different types of distribution can be designed. }}{2}{figure.3}}
 \newlabel{bilder/LeafEqEnter}{{3}{2}{Any number of distribution methods can be modeled. The red marked cell distributes boids in the direction of $\vec {V}$. The distributing cell loses $D_V$ Boids. Exactly this amount is then distributed into the orange labeled cells. For this, different types of distribution can be designed}{figure.3}{}}
-\newlabel{subsubsec_D_V}{{II-E.2}{2}{Ein Steuervektor entleert und befüllt dieselbe Menge Boids}{subsubsection.2.5.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {II-E.2}Ein Steuervektor entleert und bef\IeC {\"u}llt dieselbe Menge Boids}{2}{subsubsection.2.5.2}}
-\newlabel{Form_SummeD_V_i}{{7}{2}{Ein Steuervektor entleert und befüllt dieselbe Menge Boids}{equation.2.7}{}}
+\newlabel{Form_SummeD_V_i}{{7}{2}{A control vector empties and fills the same amount of boids}{equation.2.7}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {II-E.3}Maximum range of movement of a boid}{2}{subsubsection.2.5.3}}
 \@writefile{toc}{\contentsline {section}{\numberline {III}Evaluation}{2}{section.3}}
-\bibcite{Reynolds99steeringbehaviors}{2}
-\bibcite{Oliver14Tschesche}{3}
-\bibcite{GPUGems1}{4}
-\@writefile{toc}{\contentsline {section}{References}{3}{section*.1}}
+\@writefile{toc}{\contentsline {section}{References}{2}{section*.1}}
