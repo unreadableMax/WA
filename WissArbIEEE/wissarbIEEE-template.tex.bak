@@ -77,9 +77,10 @@ Real time boid-simulations with shaders
 
 %Instead of treating the simulated flock like a particel-system, 
 
-Basierend auf Reynolds Boid-System \cite{Reynolds87flocks} wird ein Modell für die Simulation von Tierschwärmen entwickelt. Wesentlicher Fokus liegt dabei auf lebendig wirkende Schwarmbewegungen, interaktives Verhalten und Performance. 
+Basierend auf Reynolds Boid-System \cite{Reynolds87flocks} wird ein Modell für die Simulation von Tierschwärmen entwickelt. 
+%Wesentlicher Fokus liegt dabei auf lebendig wirkende Schwarmbewegungen, interaktives Verhalten und Performance. 
 
-Statt den simulierten Schwarm wie ein Partikelsystem zu behandeln, wird Reynolds Boid-Modell in ein Zellensystem, das mit den zellulären Automaten verwandt ist, transferiert. Diese Anpassung wird vorgenommen, damit die Simulation von herkömmlichen Shadern ausgeführt werden kann.
+Statt den simulierten Schwarm wie ein Partikelsystem zu behandeln, wird Reynolds Boid-Modell in ein Zellensystem, das mit den zellulären Automaten verwandt ist, transferiert. Diese Anpassung wird vorgenommen, damit die Simulation möglichst effizient von shader-Programmen ausgeführt werden kann.
 
 Das Simulationsmodell unterteilt den Schwarm nicht in einzelne separate Individuen. Stattdessen ist der Schwarm eine im Raum ungleichmäßig verteilte Menge.
 Der Schwarm wird daher als leuchtende Punkte-Wolke, von einer Textur dargestellt.
@@ -160,7 +161,7 @@ D_i(x) = D(x + \vec{s}_i \cdot \frac{1}{R})
 
 %In Abbildung \ref{ChesionAbb} wird Zelle $X$ dargestellt, wobei in diesem Beispiel $N=4$ Wahrnehmungsvektoren gegeben sind.
 
-\bild{bilder/ChesionAbb}{4cm}{Die rot markierte Zelle heißt $X$ und befindet sich an Position $x$. Sie besitzt 4 Wahrnehmungsvektoren, $\vec{s}_i$. Mit ihnen ist die Zelle in der Lage Stichproben, $D_i$, aus der Boid-Textur, $D$, zu entnehmen.}
+\bild{bilder/ChesionAbb}{3cm}{Die rot markierte Zelle heißt $X$ und befindet sich an Position $x$. Sie besitzt 4 Wahrnehmungsvektoren, $\vec{s}_i$. Mit ihnen ist die Zelle in der Lage Stichproben, $D_i$, aus der Boid-Textur, $D$, zu entnehmen.}
 
 Mithilfe der Stichproben, $D_i$, wird dann das Kohäsions-Steuersignal, $\vec{v}_c$, wie folgt berechnet:
 

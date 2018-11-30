@@ -12,16 +12,9 @@ C.~W. Reynolds, Flocks, herds, and schools: a distributed behavioral model,
 \bibitem{Reynolds99steeringbehaviors}
 C.~Reynolds, Steering behaviors for autonomous characters (1999).
 
-\bibitem{Kennedy95particleswarm}
-J.~Kennedy, R.~Eberhart, Particle swarm optimization (1995).
-
 \bibitem{Oliver14Tschesche}
 O.~Tschesche, Parallele simulation und visualisierung von großen
   tierschwärmen mit opencl, Bachelorthesis.
-
-\bibitem{Tu94artificialfishes:}
-X.~Tu, D.~Terzopoulos, Artificial fishes: Physics, locomotion, perception,
-  behavior, 1994, pp. 43--50.
 
 \bibitem{GPUGems1}
 R.~Fernando, GPU Gems: Programming Techniques, Tips and Tricks for Real-Time
