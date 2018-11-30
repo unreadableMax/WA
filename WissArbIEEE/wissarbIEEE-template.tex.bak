@@ -71,49 +71,41 @@ Real time boid-simulations with shaders
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 
-%...The goal is to show that ... This has been done by ..., it becomes clear that ...
+%Basierend auf Reynolds Boid-System \cite{Reynolds87flocks} wird ein Modell für die Simulation von Tierschwärmen entwickelt. 
+%
+%Statt den simulierten Schwarm wie ein Partikelsystem zu behandeln, wird Reynolds Boid-Modell in ein Zellensystem, das mit den zellulären Automaten verwandt ist, transferiert. Diese Anpassung wird vorgenommen, damit die Simulation möglichst effizient von shader-Programmen ausgeführt werden kann.
+%
+%Das Simulationsmodell unterteilt den Schwarm nicht in einzelne Individuen. Stattdessen ist der Schwarm eine im Raum ungleichmäßig verteilte Menge.
+%Der Schwarm wird daher als leuchtende Punkte-Wolke dargestellt.
+%
+%Die konzipierte Schwarmsimulation wird mittels Content-Driven Multipass Rendering prototypisch implementiert. Der Prototyp wurde erfolgreich auf Echtzeitfähigkeit geprüft.
 
-%The purpose of this research is to develop a model for animal-like flocking simulations. The developed simulation-model is based on Reynolds boid-system \cite{Reynolds87flocks0}.
+Based on Reynolds boid system \cite{Reynolds87flocks}, a model for the simulation of animal swarms is being developed. 
 
-%Instead of treating the simulated flock like a particel-system, 
+Instead of treating the simulated swarm as a particle system, Reynold's Boid model is transferred to a cellular system akin to cellular automata. This adjustment is made so that the simulation can be executed as efficiently as possible by shader programs. 
 
-Basierend auf Reynolds Boid-System \cite{Reynolds87flocks} wird ein Modell für die Simulation von Tierschwärmen entwickelt. 
-%Wesentlicher Fokus liegt dabei auf lebendig wirkende Schwarmbewegungen, interaktives Verhalten und Performance. 
+The simulation model does not divide the swarm into individuals. Instead, the swarm is an unevenly distributed amount in space. The swarm is therefore depicted as a glowing point cloud. 
 
-Statt den simulierten Schwarm wie ein Partikelsystem zu behandeln, wird Reynolds Boid-Modell in ein Zellensystem, das mit den zellulären Automaten verwandt ist, transferiert. Diese Anpassung wird vorgenommen, damit die Simulation möglichst effizient von shader-Programmen ausgeführt werden kann.
+The designed swarm simulation is prototypically implemented using content-driven multipass rendering. The prototype was successfully tested for real-time capability.
 
-Das Simulationsmodell unterteilt den Schwarm nicht in einzelne Individuen. Stattdessen ist der Schwarm eine im Raum ungleichmäßig verteilte Menge.
-Der Schwarm wird daher als leuchtende Punkte-Wolke dargestellt.
-
-Die konzipierte Schwarmsimulation wird mittels Content-Driven Multipass Rendering prototypisch implementiert. Der Prototyp wurde erfolgreich auf Echtzeitfähigkeit geprüft.
 
 \end{abstract}
 
 \section{Introduction and related work}
-%Im Rahmen dieser Arbeit wird Reynolds Boid-Simulationsmodell so angepasst, dass alle für die Simulation nötigen Arbeitsschritte möglichst effizient von Shadern ausgeführt werden können.
 
-%Wegen der besonderen Funktionsweise von Shadern können manche Arbeitsschritte aus Reynolds Boid-Simulation nicht von shader-Programmen ausgeführt werden. Daher werden im Rahmen dieser Arbeit manche Gesetzmäßigkeiten aus Reynolds Boid-Modell entsprechend umformuliert. Bei Umformulierungen wird stets darauf geachtet, die grundlegenden Prinzipien des Boid-Systems möglichst unverändert zu lassen
-%, da sich das dieses System bereits in der Praxis bewährt hat.
+%Um die Bewegungsabläufe von natürlichen Tierschwärmen zu simulieren, hat sich das sogenannte Boid-Modell von Reynolds etabliert. %Auch in dieser Arbeit werden seine bekanntesten Werke, \cite{Reynolds87flocks} und \cite{Reynolds99steeringbehaviors}, als Fundament genutzt, um ein Modell für die Simulation aufzustellen.
+%
+%In dieser Arbeit werden die grundlegenden Werke von Reynolds Boid-modell \cite{Reynolds87flocks} \cite{Reynolds99steeringbehaviors} aufgegriffen, um ein neuartiges System zu modellieren, das besonders gut von Shadern und Texturen beschrieben werden kann.
+%
+%Für gewöhnlich wird Reynolds Boid-System wie ein Partikelsystem  behandelt \cite{Reynolds87flocks} \cite{Oliver14Tschesche}. 
+%%In solch einem System ist jedes Individuum des Schwarms ein eigenständiges Objekt, das sich frei im Raum bewegen kann. 
+%In dieser Arbeit wird der Schwarm hingegen von einem Zellensystems beschrieben, in dem jede Zelle örtlich gebunden ist. Jede Zelle kann dabei von mehreren Individuen besucht werden. Diese Uminterpretation erfolgt, damit die Simulation auf effiziente Weise von shader-programmen ausgeführt werden kann.
 
-%Wie bereits erwähnt, ist CDMR die technische Grundlage für die Implementierung des Boid-Systems. Wesentliches Funktionsprinzip von CDMR ist die Bildung einer Shader-Pipeline, die Texturen verarbeitet. Also muss das Boid-System so uminterpretiert werden, dass dieses möglichst effizient von Texturen beschrieben und von Shadern simuliert werden kann.
+In order to simulate the movements of natural animal swarms, the so-called boid model was established by Reynolds. 
 
-%\ac{CDMR}
+In this work, the fundamental works of Reynolds Boid model \cite{Reynolds87flocks} \cite{Reynolds99steeringbehaviors} are taken up to model a novel system that is particularly well described by shaders and textures. 
 
-Um die Bewegungsabläufe von natürlichen Tierschwärmen zu simulieren, hat sich das sogenannte Boid-Modell von Reynolds etabliert. %Auch in dieser Arbeit werden seine bekanntesten Werke, \cite{Reynolds87flocks} und \cite{Reynolds99steeringbehaviors}, als Fundament genutzt, um ein Modell für die Simulation aufzustellen.
-
-In dieser Arbeit werden die grundlegenden Werke von Reynolds Boid-modell \cite{Reynolds87flocks} \cite{Reynolds99steeringbehaviors} aufgegriffen, um ein neuartiges System zu modellieren, das besonders gut von Shadern und Texturen beschrieben werden kann.
-
-Für gewöhnlich wird Reynolds Boid-System wie ein Partikelsystem  behandelt \cite{Reynolds87flocks} \cite{Oliver14Tschesche}. 
-%In solch einem System ist jedes Individuum des Schwarms ein eigenständiges Objekt, das sich frei im Raum bewegen kann. 
-In dieser Arbeit wird der Schwarm hingegen von einem Zellensystems beschrieben, in dem jede Zelle örtlich gebunden ist. Jede Zelle kann dabei von mehreren Individuen besucht werden. Diese Uminterpretation erfolgt, damit die Simulation auf effiziente Weise von shader-programmen ausgeführt werden kann.
-%Im Zellensystem befinden sich keine einzelnen Schwarmtiere, die eindeutig voneinander trennbar sind. Stattdessen  fließt  der Schwarm vielmehr, als zum Teil kontinuierlich zusammenhängende Menge, durch das Zellensystem. Das Zellensystem wird dabei von Texturen beschrieben.
-
-%Der im Rahmen dieser Arbeit entstandene algorithmische Aufwand ist weniger von der Anzahl der simulierten Individuen abhängig, so wie es in \cite{Reynolds87flocks} der Fall ist. Stattdessen steigt hier der Rechenaufwand in Abhängigkeit von der Anzahl der verwendeten Zellen.
-
-%Reynolds Boid-System wird, wie in \cite{Oliver14Tschesche}, meist mithilfe von Grafikkartenschnittstellen wie \textit{OpenCV} oder \textit{CUDA} berechnet. In dieser Arbeit wird statt dessen auf die Verwendung von herkömmlichen Shadern gesetzt.
-
-%Schwarmtiere werden für gewöhnlich als einzelne 3D-Modelle dargestellt. Beispielsweise als einzelne Fische \cite{Tu94artificialfishes:} oder Vögel  \cite{Oliver14Tschesche}.
-%In dieser Arbeit erfolgt die Darstellung des Schwarms auf eine andere Weise. Einzelne Individuen sind hier kaum erkennbar, weil diese miteinander verschmelzen können. Der in Texturform hinterlegte Schwarm wird von Shadern als Punkte-Wolke dargestellt. Beispielsweise mittels \textit{Texture-Based Volume Rendering} \cite{GPUGems1}.  
+Usually Reynolds Boid system is treated like a particle system \cite{Reynolds87flocks} \cite{Oliver14Tschesche}. In this work, however, the swarm is described by a cellular system in which each cell is locally bound. Each cell can be visited by several individuals. This reinterpretation is done so that the simulation can be performed efficiently by shader programs.
 
 
 
@@ -121,36 +113,46 @@ In dieser Arbeit wird der Schwarm hingegen von einem Zellensystems beschrieben, 
 \subsection{Das Boid-System als Zellensystem}
 \label{sec_noParticelCells}
 
-Das Boid-System ist mit dem Partikelsystem verwand \cite{Reynolds87flocks} und kann daher für gewöhnlich auch als solches behandelt werden.
+%Das Boid-System ist mit dem Partikelsystem verwand \cite{Reynolds87flocks} und kann daher für gewöhnlich auch als solches behandelt werden.
 
-%Weil in diesem Fall das Boid-System von Texturen beschrieben wird, muss ein partikelähnliches System von Pixel-Shadern beschrieben werden. Herkömmliche Shader sind allerdings schlecht für die Beschreibung von Partikelsystemen geeignet. Das liegt an der folgenden Problematik:
+The Boid system is related to the particle system \cite{Reynolds87flocks} and therefore can usually be treated as such. 
  
-Wesentlicher Bestandteil eines Partikelsystems ist die Bewegung, also die Positionsänderung, von Partikeln. 
-Ein Shader kann ein Pixel allerdings nicht ohne weiteres bewegen. Das hängt damit zusammen, dass ein Pixel-Thread nicht in der Lage ist, Werte in andere Pixel zu schreiben. Jedes Pixel kann sein Rechenergebnis nur in sich selbst schreiben.
+%Wesentlicher Bestandteil eines Partikelsystems ist die Bewegung, also die Positionsänderung, von Partikeln. 
+%Ein Shader kann ein Pixel allerdings nicht ohne weiteres bewegen. Das hängt damit zusammen, dass ein Pixel-Thread nicht in der Lage ist, Werte in andere Pixel zu schreiben. Jedes Pixel kann sein Rechenergebnis nur in sich selbst schreiben.
 
-%Jedes Pixel als einzelnes Partikel zu betrachten, ist daher nicht empfehlenswert. Ein Partikel, beschrieben von einem Pixel, könnte dann nämlich nicht ohne weiteres seine Position ändern und könnte sich somit schlecht bewegen.
+An essential component of a particle system is the movement, ie the positional change, of particles. However, a shader cannot easily move a pixel. This is because a pixel thread is unable to write values to other pixels. Each pixel can write its calculation result only in itself.
 
-Aufgrund dieser Einschränkung verabschieden wir uns an dieser Stelle vom Gedanken des Partikelsystems. Stattdessen wird das Boidsystem von einem Zellen-System beschrieben.
-%, wie bei shaderbasierten Flüssigkeitsströmungssimulationen \cite{GPUGems1} auch.
 
-Weil shader-programme auf die Verarbeitung von Texturen optimiert sind, wird dieses Zellensystem mithilfe von Texturen beschrieben. Ein Pixel aus einer Textur repräsentiert eine Zelle. Die Individuen des simulierten Schwarms (Boids) bewegen sich dabei durch nebeneinanderliegende Zellen hindurch. Jede Zelle kann eine reelle Menge von Boids, $D_i>=0$, besitzen.
+%Aufgrund dieser Einschränkung verabschieden wir uns an dieser Stelle vom Gedanken des Partikelsystems. Stattdessen wird das Boidsystem von einem Zellen-System beschrieben.
+%Weil shader-programme auf die Verarbeitung von Texturen optimiert sind, wird dieses Zellensystem mithilfe von Texturen beschrieben. Ein Pixel aus einer Textur repräsentiert eine Zelle. Die Individuen des simulierten Schwarms (Boids) bewegen sich dabei durch nebeneinanderliegende Zellen hindurch. 
+%Jede Zelle kann eine reelle Menge von Boids, $D_i>=0$, besitzen.
 
-%Weil sich hinter jeder Zelle ein Pixel-Thread verbirgt, sind es im Grunde die Zellen, die die umherfliegenden Boids steuern.
+Because of this restriction, we say goodbye to the idea of the particle system at this point. Instead, the boid system is described by a cell system. Because shader programs are optimized for processing textures, this cell system is described using textures. A pixel from a texture represents a cell. The individuals of the simulated swarm (Boids) move through adjacent cells. Each cell can have a real set of boids, $D_i>=0$.
+
+
 
 \bild{bilder/Schwarmdarstellung}{5cm}{Left: A texture, that represents the boid-density, $D$. Each pixel is a real skalar value that represents the amount of boids, contained in this cell. Right: A texture, called $V$, that holds the control-vectors, $v$, for each cell. Each boid will follow its own control-vector}
 
-In den nächsten Kapiteln werden Reynolds drei Grundverhaltensregeln, cohasion, seperation und alignment, umformuliert. Aus jeder Verhaltensregel werden sogenannte Steuervektoren, $\vec{v}$, generiert, wie in Abbildung \ref{bilder/Schwarmdarstellung} gezeigt. Die Summe aller Steuervektoren ergibt den Gesamtsteuervektor, $\vec{V}$, in dessen Richtung sich Boids bewegen.
+%In den nächsten Kapiteln werden Reynolds drei Grundverhaltensregeln, cohasion, seperation und alignment, umformuliert. Aus jeder Verhaltensregel werden sogenannte Steuervektoren, $\vec{v}$, generiert, wie in Abbildung \ref{bilder/Schwarmdarstellung} gezeigt. Die Summe aller Steuervektoren ergibt den Gesamtsteuervektor, $\vec{V}$, in dessen Richtung sich Boids bewegen.
 
-%\section{Reynolds 3 Grundverhaltensregeln}
+The following chapters reformulate Reynold's three basic behavioral rules, cohasion, separation, and alignment. From each behavior rule, so-called control vectors, $\vec{v}$, are generated, as shown in Figure 1. The sum of all control vectors gives the total control vector, $\vec{V}$, in the direction of moving boids.
+
 
 
 \subsection{Cohasion}
 
-Der Steuervektor, der aus der Verhaltensregel der Kohäsion entsteht, wird $\vec{v}_c$ genannt. $\vec{v}_c$ ist im wesentlichem ein Vektor, der zum Schwerpunkt aller gefundenen Nachbarn zeigt. 
-Jede Zelle ist ein eigener Thread und berechnet ihr eigenes Kohäsions-Steuersignal, $\vec{v}_c$.
-Um $\vec{v}_c$ zu berechnen, wird die Textur $D$, benötigt. $D$ gibt an, wie viele Boids in einer Zelle vorhanden sind.
+%Der Steuervektor, der aus der Verhaltensregel der Kohäsion entsteht, wird $\vec{v}_c$ genannt. $\vec{v}_c$ ist im wesentlichem ein Vektor, der zum Schwerpunkt aller gefundenen Nachbarn zeigt. 
+%Jede Zelle ist ein eigener Thread und berechnet ihr eigenes Kohäsions-Steuersignal, $\vec{v}_c$.
+%Um $\vec{v}_c$ zu berechnen, wird die Textur $D$, benötigt. $D$ gibt an, wie viele Boids in einer Zelle vorhanden sind.
 
-Gegeben sei eine Zelle, $X$, die sich am Ort $x = (x_u \qquad x_v)$ befindet. Diese Zelle berechnet ein Kohäsions-Steuersignal für diesen Ort, $\vec{v}_c(x)$, mithilfe von $N$ gegebenen Wahrnehmungsvektoren. Mit einem Wahrnehmungsvektor, $\vec{s}_i$, kann eine Stichprobe, $D_i$, aus $D$ entnommen werden (siehe Gleichung \ref{Form_Di}).
+The control vector, which results from the behavioural rule of cohesion, is called $\vec{v}_c$. $\vec{v}_c$ is essentially a vector that points to the center of gravity of all found neighbours. Each cell is a separate thread and calculates its own cohesion control vector,  $\vec{v}_c$. To calculate  $\vec{v}_c$, the boid density texture, $D$, is needed. $D$ indicates how many boids are present in a cell. 
+
+
+
+
+%Gegeben sei eine Zelle, $X$, die sich am Ort $x = (x_u \qquad x_v)$ befindet. Diese Zelle berechnet ein Kohäsions-Steuersignal für diesen Ort, $\vec{v}_c(x)$, mithilfe von $N$ gegebenen Wahrnehmungsvektoren. Mit einem Wahrnehmungsvektor, $\vec{s}_i$, kann eine Stichprobe, $D_i$, aus $D$ entnommen werden (siehe Gleichung \ref{Form_Di}).
+
+Given a cell, $X$, which is located at $x = (x_u \qquad x_v)$. This cell calculates a cohesion control signal for this location,$\vec{v}_c(x)$, using $N$ given perceptual vectors. With a perceptual vector, $\vec{s}_i$, a sample, $D_i$, can be taken from $D$.
 
 \begin{equation}
 D_i(x) = D(x + \vec{s}_i \cdot \frac{1}{R})
@@ -161,18 +163,25 @@ D_i(x) = D(x + \vec{s}_i \cdot \frac{1}{R})
 
 \bild{bilder/ChesionAbb}{3cm}{Die rot markierte Zelle heißt $X$ und befindet sich an Position $x$. Sie besitzt 4 Wahrnehmungsvektoren, $\vec{s}_i$. Mit ihnen ist die Zelle in der Lage Stichproben, $D_i$, aus der Boid-Textur, $D$, zu entnehmen.}
 
-Mithilfe von Stichproben, $D_i$, wird dann das Kohäsions-Steuersignal, $\vec{v}_c$, wie folgt berechnet:
+%Mithilfe von Stichproben, $D_i$, wird dann das Kohäsions-Steuersignal, $\vec{v}_c$, wie folgt berechnet:
+
+Using the samples, $D_i$, the cohesion control signal, $\vec{v}_c$, is then calculated as follows:
+
 
 \begin{equation}
 \vec{v}_c(x) = \frac{\sum_{i=1}^N( \vec{s}_i \cdot D_i(x))}{\sum_{i=1}^N D_i(x)}
 \label{Form_Cohesion}
 \end{equation}
 
-Im Zähler der Gleichung \ref{Form_Cohesion} werden Vektoren von Zelle $X$ zu allen gefundenen Nachbarn gespannt und aufsummiert.
+%Im Zähler der Gleichung \ref{Form_Cohesion} werden Vektoren von Zelle $X$ zu allen gefundenen Nachbarn gespannt und aufsummiert.
+
+In the numerator of Equation \ref{Form_Cohesion}, basically nothing less is done than to clamp vectors from cell $X$ to all found neighbours.
 
 %Ist beispielsweise die Stichprobe $D_1$ aus Abbildung \ref{bilder/ChesionAbb} gleich 2, bedeutet dies, dass sich in der Zelle an der Stelle $x + \vec{s}_1$ zwei Boids befinden. Das Produkt aus $D_1$ und $\vec{s}_1$ ergibt $2 \cdot \vec{s}_1$. Somit werden zwei Vektoren zu einer Zelle gespannt, die zwei Boids aufbewahrt. Im Umkehrschluss Würden keine Vektoren nach $x + \vec{s}_1$ gespannt werden, wenn $D_1 = 0$ wäre, weil dann $D_1 \cdot \vec{s}_1 = 0$ ist.
 
-Zum Schluss wird der Mittelwert aus allen gespannten Vektoren gebildet, indem durch die Anzahl aller gefundenen Nachbarn, $\sum_{i=1}^N D_i$, geteilt wird. 
+%Zum Schluss wird der Mittelwert aus allen gespannten Vektoren gebildet, indem durch die Anzahl aller gefundenen Nachbarn, $\sum_{i=1}^N D_i$, geteilt wird. 
+
+Finally, the mean of all the stretched vectors is formed by dividing by the number of all neighbours found, $\sum_{i=1}^N D_i$.
 
 %Mit Formel \ref{Form_Cohesion} wird $\vec{v}_c$ prinzipiell so wie Reynolds es in \cite{Reynolds99steeringbehaviors} vorschlägt, berechnet. Statt den Schwerpunkt der Nachbarn zu berechnen und dann einen Vektor von $x$ zum Schwerpunkt zu ziehen, kann auch der Durchschnitt aus allen zu den Nachbarn zeigenden Vektoren gebildet werden. Genau das wird hier getan. 
 
@@ -181,8 +190,10 @@ Zum Schluss wird der Mittelwert aus allen gespannten Vektoren gebildet, indem du
 
 %Auch hier gilt wieder, das jeder Wahrnehmungsvektor, $\vec{s}_i$, eine Stichprobe, $D_i$, aus $D$ liefert, die ein Maß für die Anzahl der gefundenen Boids ist (Siehe Gleichung \ref{Form_Di}). Zudem wird wieder eine Zelle namens $X$, die sich bei Position $x$ befindet, betrachtet.
 
-Das Separations-Steuersignal, $\vec{v}_s$, arbeitet im Gegensatz zur Kohäsion mit Vektoren, die von den entdeckten Nachbarn weg und zum gesteuerten Boid hin zeigen. Die Größe des Steuervektors, $\vec{v}_s$, steigt umso mehr an, je näher ein Nachbar ist. Reynolds empfiehlt hierfür mit umgekehrter Proportionalität zu arbeiten \cite{Reynolds99steeringbehaviors}.
-So entsteht schlussendlich Formel \ref{Form_Separation}:
+%Das Separations-Steuersignal, $\vec{v}_s$, arbeitet im Gegensatz zur Kohäsion mit Vektoren, die von den entdeckten Nachbarn weg und zum gesteuerten Boid hin zeigen. Die Größe des Steuervektors, $\vec{v}_s$, steigt umso mehr an, je näher ein Nachbar ist. Reynolds empfiehlt hierfür mit umgekehrter Proportionalität zu arbeiten \cite{Reynolds99steeringbehaviors}.
+%So entsteht schlussendlich Formel \ref{Form_Separation}:
+
+The separation control signal,  $\vec{v}_s$, works in contrast to cohesion with vectors pointing away from the discovered neighbours and towards the controlled boid. The size of the control vector,  $\vec{v}_s$, increases the closer a neighbour is. Reynolds recommends working with reverse proportionality \cite{Reynolds99steeringbehaviors}. This is how Formula \ref{Form_Separation} finally emerges:
 
 \begin{equation}
 \vec{v}_s(x) = \sum_{i=1}^N (-D_i(x) \cdot e(\vec{s}_i) \cdot \frac{1}{\length{s_i}}) = - \sum_{i=1}^N(D_i(x) \cdot \frac{\vec{s}_i}{\length{s_i}^2})
@@ -197,7 +208,9 @@ So entsteht schlussendlich Formel \ref{Form_Separation}:
 \subsection{Alignment}
 \label{subsec_Ausrichtung}
 
-Der Steuervektor, $\vec{v}_a$, soll dafür sorgen, dass sich ein Boid der Bewegungsrichtung und Geschwindigkeit seiner Nachbarschaft anpasst. Diesmal ist also nicht nur die Menge, $D$, der Nachbarschaft von Interesse, sondern auch deren Bewegungsrichtungen, $\vec{V}$.
+%Der Steuervektor, $\vec{v}_a$, soll dafür sorgen, dass sich ein Boid der Bewegungsrichtung und Geschwindigkeit seiner Nachbarschaft anpasst. Diesmal ist also nicht nur die Menge, $D$, der Nachbarschaft von Interesse, sondern auch deren Bewegungsrichtungen, $\vec{V}$.
+
+The control signal, $\vec{v}_a$, is intended to ensure that a boid adapts to the direction of movement and speed of its neighbourhood. This time not only the amount, $D$, of the neighbourhood is of interest, but also their directions of movement, $\vec{V}$. 
 
 %Die Nachbarschaftssuche um Position $x$ herum, wird wieder mithilfe von $N$ Wahrnehmungsvektoren unternommen. Jeder Wahrnehmungsvektor, $\vec{s}_i$, wird dabei eine Stichprobe, $\vec{V}_i(x)$, aus der Textur, $\vec{V}$, entnehmen. 
 %Die Berechnung von $\vec{V}_i(x)$ erfolgt nach Formel \ref{Form_Vi}:
@@ -205,27 +218,36 @@ Der Steuervektor, $\vec{v}_a$, soll dafür sorgen, dass sich ein Boid der Bewegu
 
 
 %Wobei $R$ die Auflösung von $\vec{V}$ ist. 
-%Hierbei ist zu beachten, dass $\vec{V}$ einen Steuervektor von einer Zelle liefert. 
-In einer Zelle können sich mehrere Boids aufhalten. Das Bedeutet, dass $\vec{V}$ den Gesamtsteuervektor von mehreren Boids repräsentieren könnte. Dies wird bei der Berechnung von $\vec{v}_a$ berücksichtigt:
+%Hierbei ist zu beachten, dass $\vec{V}$ einen Steuervektor von einer Zelle liefert.
+ 
+%In einer Zelle können sich mehrere Boids aufhalten. Das Bedeutet, dass $\vec{V}$ den Gesamtsteuervektor von mehreren Boids repräsentieren könnte. Dies wird bei der Berechnung von $\vec{v}_a$ berücksichtigt:
+
+A cell can contain several boids. This means that $\vec{V}$ could represent the control vector of several boids. This is considered in the calculation of $\vec{v}_a$, in formula \ref{Form_Align}.
+
 
 \begin{equation}
 \vec{v}_a(x) = \dfrac{\sum_{i=1}^N(\vec{V}_i(x) \cdot D_i(x))}{\sum_{i=1}^N(D_i(x))} - \vec{V}(x)
 \label{Form_Align}
 \end{equation}
 
-mit
+with
 
 \begin{equation}
 \vec{V}_i(x) = \vec{V}(x + \vec{s}_i \cdot \dfrac{1}{R})
 \label{Form_Vi}
 \end{equation}
 
-So setzt sich Gleichung \ref{Form_Align} zusammen: Zuerst wird im Zähler des ersten Terms die Summe aller Gesamtsteuervektoren aus der Nachbarschaft gebildet. 
-%Die Summe aller Steuervektoren, aus einer benachbarten Zelle, kann mit $\vec{V}_i \cdot D_i$ errechnet werden. 
-%Befinden sich beispielsweise zwei Boids in der durchsuchten Zelle, ist $D_i=2$. Dann müsste also das Steuersignal auch doppelt genommen werden um die Summe aller Steuersignale zu erhalten. Daher wird hier mit $\vec{V}_i \cdot D_i$ gearbeitet. 
-Danach wird diese Summe durch die Anzahl aller gefundenen Steuervektoren geteilt. Die Anzahl der gefundenen Steuervektoren entspricht der Anzahl der gefundenen Boids, $\sum_{i=1}^N(D_i(x))$.
+%So setzt sich Gleichung \ref{Form_Align} zusammen: Zuerst wird im Zähler des ersten Terms die Summe aller Gesamtsteuervektoren aus der Nachbarschaft gebildet. 
 
-Nachdem die durchschnittliche Bewegungsrichtung der Nachbarschaft ermittelt wurde, wird davon die eigene Bewegungsrichtung, $\vec{V}(x)$, abgezogen, so wie es in \cite{Reynolds99steeringbehaviors} empfohlen wird. 
+First, in the numerator (equation \ref{Form_Align}) of the first term, the sum of all the control vectors from the neighbourhood is formed. 
+
+
+%Danach wird diese Summe durch die Anzahl aller gefundenen Steuervektoren geteilt. Die Anzahl der gefundenen Steuervektoren entspricht der Anzahl der gefundenen Boids, $\sum_{i=1}^N(D_i(x))$.
+Thereafter, this sum is divided by the number of control signals found. The number of detected control signals corresponds to the number of found boids, $\sum_{i=1}^N(D_i(x))$.
+
+%Nachdem die durchschnittliche Bewegungsrichtung der Nachbarschaft ermittelt wurde, wird davon die eigene Bewegungsrichtung, $\vec{V}(x)$, abgezogen, so wie es in \cite{Reynolds99steeringbehaviors} empfohlen wird. 
+After the average direction of motion of the neighbourhood has been determined, the own direction of movement, $\vec{V}(x)$, is subtracted from this, as it is done in \cite{Reynolds99steeringbehaviors}.
+
 
 %Formel \ref{Form_Align} kann auch zu Formel \ref{Form_AlignCa} vereinfacht werden. Bei dieser Vereinfachung wird ein Steuersignal aus einer Zelle, $\vec{V}_i$, direkt als Durchschnittssignal interpretiert.
 
@@ -251,7 +273,7 @@ Nachdem die durchschnittliche Bewegungsrichtung der Nachbarschaft ermittelt wurd
 
 Nachdem $V$ berechnet wurde, muss der Schwarm in Richtung der gegebenen Steuervektoren bewegt werden. Wie sich eine Menge Boids, $D_i$, die sich innerhalb einer Zelle befindet, verteilt, wird mithilfe folgender Regeln modelliert:
 
-\subsubsection{Die Anzahl der Boids ist konstant}
+\subsubsection{The number of boids is constant}
 
 %Beim Transport der Boids sollte stets auf die Einhaltung des folgenden Gesetzes geachtet werden:
 
@@ -265,33 +287,35 @@ Formel \ref{Form_BoidFlussKonst} legt fest, dass die Anzahl aller vorhandenen Bo
 \subsubsection{Ein Steuervektor entleert und befüllt dieselbe Menge Boids}
 \label{subsubsec_D_V}
 
-%Gegeben sei eine Zelle $X$ bei $x$. Sie besitzt einen Steuervektor $\vec{V}$ und $D$ Boids.
+%Ein Steuervektor, $\vec{V}$, verursacht den Transport einer Menge Boids, $D_V$.
+%Durch den Transport verliert eine Zelle $D_V$ boids, während genau dieselbe Menge in ihrer Umgebung verteilt wird. 
+%Eine Zelle darf niemals mehr Boids verlieren, als Sie besitzt.
+%Eine verteilte Menge Boids, $D_V$, kann auf $N$ andere Zellen verteilt werden:
 
-Ein Steuervektor, $\vec{V}$, verursacht den Transport einer Menge Boids, $D_V$.
-%, wobei \\ $D_V <= D$ (damit Gesetz \ref{Form_BoidFlussKonst} eingehalten wird).
+A control vector dumps and fills the same amount of boids: A control vector, $\vec{V}$, causes the transport of a lot of boids, $D_V$. The set $D_V$ is then distributed to $N$ other cells.
 
-Durch den Transport verliert eine Zelle $D_V$ boids, während genau dieselbe Menge in ihrer Umgebung verteilt wird. 
-Eine Zelle darf niemals mehr Boids verlieren, als Sie besitzt.
-Eine verteilte Menge Boids, $D_V$, kann auf $N$ andere Zellen verteilt werden:
-%Diese Zellen werden als \textit{besuchte} Zellen bezeichnet. Jede besuchte Zelle bekommt eine Teilmenge von $D_V$, namens $D_{Vi}$ gutgeschrieben.
+\bild{bilder/LeafEqEnter}{5cm}{Any number of distribution methods can be modeled. The red marked cell distributes boids in the direction of $\vec{V}$. The distributing cell loses $D_V$ Boids. Exactly this amount is then distributed into the orange labeled cells. For this, different types of distribution can be designed.
+}
 
-\bild{bilder/LeafEqEnter}{5cm}{Es lassen sich beliebig viele Verteilungsmethoden modellieren. Die rot markierte Zelle verteilt Boids in Richtung von $V$. Die Verteilende Zelle verliert dabei $D_V$ Boids. Genau diese Menge wird dann in die orange markierten Zellen verteilt. Hierfür können unterschiedliche Verteilungsarten konzipiert werden.}
+%Die Summe aller $N$ Teilmengen, $D_{Vi}$, muss dabei genau so groß sein, wie die verteilte Menge $D_V$:
+The sum of all $N$ subsets, $D_{Vi}$, must be exactly the same as the lost quantity $D_V$.
 
-Die Summe aller $N$ Teilmengen, $D_{Vi}$, muss dabei genau so groß sein, wie die verteilte Menge $D_V$:
 
 \begin{equation}
 \sum_{i=1}^N(D_{V_i}) = D_V
 \label{Form_SummeD_V_i}
 \end{equation}
 
-Für die Verteilung von $D_V$ können, so wie in Abbildung \ref{LeafEqEnter} vorgeschlagen, unterschiedliche Verteilungsmethoden eingesetzt werden. %$D_{Vi}$ kann einer einzigen Zelle überreicht oder auf mehrere Zellen verteilt werden.
+%Für die Verteilung von $D_V$ können, so wie in Abbildung \ref{LeafEqEnter} vorgeschlagen, unterschiedliche Verteilungsmethoden eingesetzt werden. 
+For the distribution of $D_V$  different distribution methods can be used, as suggested in Figure \ref{bilder/LeafEqEnter}.
+$D_{V_i}$ can be passed to a single cell or distributed to multiple cells.
 
-%Bei der Verteilung muss aber immer Gleichung \ref{Form_SummeD_V_i} erfüllt sein. Außerdem sollten die Teilmengen, $D_{Vi}$, sinngemäß in Richtung des Steuervektors, $\vec{V}$, verteilt werden, damit sich die Boids in die angestrebte Richtung bewegen.
 
+\subsubsection{Maximum range of movement of a boid}
 
-\subsubsection{Maximale Bewegungsreichweite eines Boids}
+%Bei der Advektion von Texturen sollte ein Pixel pro Zeitschritt nicht weiter als eine Pixellänge bewegt werden. Ansonsten können Instabilitäten entstehen, wodurch sich die bewegte Textur, laut \cite{GPUGems1}, explosionsartig aufblasen kann.
+In the advection of textures, one pixel per time step should not be moved more than one pixel. Otherwise, instabilities may occur, causing the moving texture to expand, according to \cite{GPUGems1}.
 
-Bei der Advektion von Texturen sollte ein Pixel pro Zeitschritt nicht weiter als eine Pixellänge bewegt werden. Ansonsten können Instabilitäten entstehen, wodurch sich die bewegte Textur, laut \cite{GPUGems1}, explosionsartig aufblasen kann.
 
 %Daher sollte bei der Simulation darauf geachtet werden, dass ein Boid pro Simulationsschritt keine Zelle überspringt. Diese Regel sollte bei der Konzipierung von Verteilungsmethoden berücksichtigt werden. Verteilungsmethoden wie die Methode, die in Abbildung \ref{LeafEqEnter} ganz rechts zu sehen ist, sollten daher vermieden werden.
 

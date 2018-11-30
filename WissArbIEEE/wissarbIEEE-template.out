@@ -5,8 +5,8 @@
 \BOOKMARK [2][-]{subsection.2.3}{Separation}{section.2}% 5
 \BOOKMARK [2][-]{subsection.2.4}{Alignment}{section.2}% 6
 \BOOKMARK [2][-]{subsection.2.5}{rules of boid movement}{section.2}% 7
-\BOOKMARK [3][-]{equation.2.6}{Die Anzahl der Boids ist konstant}{subsection.2.5}% 8
+\BOOKMARK [3][-]{equation.2.6}{The number of boids is constant}{subsection.2.5}% 8
 \BOOKMARK [3][-]{subsubsection.2.5.2}{Ein Steuervektor entleert und bef\374llt dieselbe Menge Boids}{subsection.2.5}% 9
-\BOOKMARK [3][-]{subsubsection.2.5.3}{Maximale Bewegungsreichweite eines Boids}{subsection.2.5}% 10
+\BOOKMARK [3][-]{subsubsection.2.5.3}{Maximum range of movement of a boid}{subsection.2.5}% 10
 \BOOKMARK [1][-]{section.3}{Evaluation}{}% 11
 \BOOKMARK [1][-]{section*.1}{References}{}% 12
